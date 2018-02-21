@@ -9,6 +9,9 @@ import { ContentComponent } from "./core/content/content.component";
 import {LoginComponent} from "./core/login/login.component";
 import {RegisterComponent} from "./core/register/register.component";
 
+// Google maps
+import { AgmCoreModule } from '@agm/core';
+
 const appRoutes: Routes = [
   {path: '', component: ContentComponent},
   {path: 'about', component: AboutComponent},
@@ -22,7 +25,8 @@ const appRoutes: Routes = [
       LoginComponent, RegisterComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(appRoutes)
+    BrowserModule, RouterModule.forRoot(appRoutes),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'})
   ],
   providers: [],
   bootstrap: [AppComponent, NavbarComponent]
