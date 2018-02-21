@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-var staticUsers = [{name: 'John Doe'}, {name: 'Jane Doe'}];
+// for testing purposes
+var apiTest = require('./../models/db-test')
 
-let response = {
-    status: 200,
-    data: [],
-    message: null
-};
+router.get('/api-test', function (req, res) {
+  apiTest.apiTest(req, res);
+});
 
-// for testing purposes in initial upload
-router.get('/users', (req, res) => {
-    response.data = staticUsers;
-    res.json(response);
+router.get('/api-test/:new', function (req, res) {
+  console.log(req.params.new);
+  apiTest.apiTestNew(req, res);
 });
 
 module.exports = router;
