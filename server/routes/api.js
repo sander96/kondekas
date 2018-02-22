@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-// for testing purposes
-var apiTest = require('./../models/db-test')
+var users = require('./users');
 
-router.get('/api-test', function (req, res) {
-  apiTest.apiTest(req, res);
-});
+// User registration
+router.post('/register', users.createUser);
 
-router.get('/api-test/:new', function (req, res) {
-  console.log(req.params.new);
-  apiTest.apiTestNew(req, res);
-});
+// User authentication
+router.post('/login', users.loginUser);
 
 module.exports = router;
