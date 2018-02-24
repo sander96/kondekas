@@ -1,11 +1,15 @@
 var mongoose = require('mongoose');
-var url = 'mongodb://localhost/kondekas';
+var uri = 'mongodb://localhost/kondekas';
 
-mongoose.connect(url);
+if (process.env.NODE_ENV === 'production') {
+  uri = process.env.MONGOLAB_URI;
+}
+
+mongoose.connect(uri);
 var db = mongoose.connection;
 
 db.on('open', function () {
-  console.log('Mongoose connected to ' + url);
+  console.log('Mongoose connected to ' + uri);
 });
 
 db.on('error', function (err) {
