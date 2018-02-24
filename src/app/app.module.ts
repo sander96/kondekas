@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 
+import {ContentModule} from "./core/content/content.module";
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { AboutComponent } from "./core/about/about.component";
@@ -21,11 +23,11 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, NavbarComponent, AboutComponent, ContentComponent,
+    AppComponent, NavbarComponent, AboutComponent,
       LoginComponent, RegisterComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(appRoutes),
+    ContentModule, BrowserModule, RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'})
   ],
   providers: [],
