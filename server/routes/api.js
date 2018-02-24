@@ -1,12 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
-var users = require('./users');
+var authentication = require('../controllers/authentication');
+var passport = require('passport');
 
-// User registration
-router.post('/register', users.createUser);
+// User registration with email
+router.post('/register/email', authentication.registerEmail);
 
-// User authentication
-router.post('/login', users.loginUser);
+// User login with email
+router.post('/login/email', passport.authenticate('local'), authentication.loginSuccess);
+
+// Authentication required to access the following resource
+router.get('/auth-test', authentication.checkAuthentication, function (req, res) {
+  res.send("Welcome " + req.user.email + ", only logged in users can see this message.");
+});
+
+// Logout
+router.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
 module.exports = router;
