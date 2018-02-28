@@ -9,8 +9,8 @@ import { Observable } from "rxjs/Observable";
   templateUrl: './productDisplay.component.html'
 })
 export class ProductDisplayComponent implements OnInit{
-  readonly ROOT_URL = 'https://jsonplaceholder.typicode.com';
   products: Observable<Product[]>;
+  readonly ROOT_URL = 'https://jsonplaceholder.typicode.com';
 
   constructor(private http: HttpClient) {}
 

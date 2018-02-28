@@ -8,23 +8,26 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { AboutComponent } from "./core/about/about.component";
 import { ContentComponent } from "./core/content/content.component";
-import {LoginComponent} from "./core/login/login.component";
-import {RegisterComponent} from "./core/register/register.component";
+import { LoginComponent } from "./core/login/login.component";
+import { RegisterComponent } from "./core/register/register.component";
+import { HomeComponent } from './core/home/home.component';
+import { SidenavComponent } from './core/sidenav/sidenav.component';
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
-  {path: '', component: ContentComponent},
+  {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'login', component: LoginComponent },
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'content', component: ContentComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent, NavbarComponent, AboutComponent,
-      LoginComponent, RegisterComponent
+      LoginComponent, RegisterComponent, SidenavComponent, HomeComponent
   ],
   imports: [
     ContentModule, BrowserModule, RouterModule.forRoot(appRoutes),
