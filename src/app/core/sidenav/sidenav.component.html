@@ -1,1 +1,21 @@
-Side nav
+<ul class='nav flex-column'>
+    <li *ngFor='let category of categories'>
+        <div *ngIf='category.subcategories.length > 0; then thenBlock; else elseBlock'></div>
+        <ng-template #thenBlock>
+            <li class='nav-item dropdown'>
+                <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'>{{category.name}}</a>
+                <div class='dropdown-menu'>   
+                    <div *ngFor='let subCategory of category.subcategories'>
+                        <a class='dropdown-item' href='#'>{{subCategory.name}}</a>
+                    </div>
+                </div>
+            </li>
+        </ng-template>
+
+        <ng-template #elseBlock>
+            <li class='nav-item'>
+                <a class='nav-link' href='#'>{{category.name}}</a>
+            </li>
+        </ng-template>
+    </li>
+</ul>

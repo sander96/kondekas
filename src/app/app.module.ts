@@ -12,6 +12,7 @@ import { LoginComponent } from "./core/login/login.component";
 import { RegisterComponent } from "./core/register/register.component";
 import { HomeComponent } from './core/home/home.component';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
+import { CategoriesService } from './core/services/categories.service'
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
@@ -33,7 +34,7 @@ const appRoutes: Routes = [
     ContentModule, BrowserModule, RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'})
   ],
-  providers: [],
+  providers: [CategoriesService],
   bootstrap: [AppComponent, NavbarComponent]
 })
 export class AppModule { }

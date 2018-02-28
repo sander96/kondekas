@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import { Product } from '../models/product.model'
 
 @Component({
   selector: 'app-home',
@@ -12,32 +13,32 @@ export class HomeComponent implements OnInit {
 
   numberOfProducts = 3;
 
-  productsTop: Observable<testProduct[]>;
-  productsPopular: Observable<testProduct[]>;
-  productsFeatured: Observable<testProduct[]>;
-  productsRecommended: Observable<testProduct[]>;
+  productsTop: Observable<Product[]>;
+  productsPopular: Observable<Product[]>;
+  productsFeatured: Observable<Product[]>;
+  productsRecommended: Observable<Product[]>;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     let params = new HttpParams().set('albumId', '1');
-    this.productsTop = this.http.get<testProduct[]>(this.ROOT_URL + '/photos', { params });
+    this.productsTop = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
     
     params = new HttpParams().set('albumId', '2');
-    this.productsPopular = this.http.get<testProduct[]>(this.ROOT_URL + '/photos', { params });
+    this.productsPopular = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
     
     params = new HttpParams().set('albumId', '3');
-    this.productsFeatured = this.http.get<testProduct[]>(this.ROOT_URL + '/photos', { params });
+    this.productsFeatured = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
     
     params = new HttpParams().set('albumId', '4');
-    this.productsRecommended = this.http.get<testProduct[]>(this.ROOT_URL + '/photos', { params });
+    this.productsRecommended = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
   }
 }
 
-export class testProduct  {
+/*export class testProduct  {
   id: number;
   albumId: number;
   title: string;
   url: string;
   thumbnailUrl: string;
-}
+}*/
