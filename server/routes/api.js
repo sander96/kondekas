@@ -4,6 +4,8 @@ const router = express.Router();
 var authentication = require('../controllers/authentication');
 var passport = require('passport');
 
+var categoryHandler = require('../controllers/categoryHandler');
+
 // User registration with email
 router.post('/register/email', authentication.registerEmail);
 
@@ -20,5 +22,14 @@ router.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
+
+// Create new category
+router.post('/category/:category', authentication.checkAuthentication, categoryHandler.createCategory);
+
+// Create new subcategory
+router.post('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.createSubcategory);
+
+// Read list of categories
+router.get('/category', categoryHandler.getCategories);
 
 module.exports = router;
