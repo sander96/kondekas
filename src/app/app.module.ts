@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 import {ContentModule} from "./core/content/content.module";
 
@@ -12,7 +13,8 @@ import { LoginComponent } from "./core/login/login.component";
 import { RegisterComponent } from "./core/register/register.component";
 import { HomeComponent } from './core/home/home.component';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
-import { CategoriesService } from './core/services/categories.service'
+import { CategoriesService } from './core/services/categories.service';
+import {AuthService} from "./core/services/auth.service";
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
@@ -31,10 +33,10 @@ const appRoutes: Routes = [
       LoginComponent, RegisterComponent, SidenavComponent, HomeComponent
   ],
   imports: [
-    ContentModule, BrowserModule, RouterModule.forRoot(appRoutes),
+    ContentModule, BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'})
   ],
-  providers: [CategoriesService],
+  providers: [CategoriesService, AuthService],
   bootstrap: [AppComponent, NavbarComponent]
 })
 export class AppModule { }

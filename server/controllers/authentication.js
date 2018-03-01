@@ -64,5 +64,5 @@ module.exports.registerEmail = function (req, res) {
 }
 
 module.exports.loginSuccess = function (req, res) {
-  return res.send("Welcome " + req.user.email);
+  return res.json({status: 'success'});
 }
