@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
-var User = require('../models/user')
+var User = require('../models/user').User;
+var LocalUser = require('../models/user').LocalUser;
+var GoogleUser = require('../models/user').GoogleUser;
 var bcrypt = require('bcrypt');
 var passport = require('passport');
 
@@ -22,17 +24,15 @@ module.exports.checkAuthentication = function checkAuthentication(req, res, next
   }
 }
 
-function saveUser(hashedPassword, req, res) {
+function saveUser(user, req, res) {
   var newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: hashedPassword
+    accounts: [user]
   });
 
   newUser.save(function (err, newUser) {
     if (err) {
       res.status(400);
-      res.send("email already in use");
+      res.send(err);
       return;
     } else {
       req.login(newUser, function (err) {
@@ -59,7 +59,20 @@ module.exports.registerEmail = function (req, res) {
       res.status(500);
       return res.send("something went wrong");
     }
-    saveUser(hashedPassword, req, res);
+
+    var user = new LocalUser({
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword
+    });
+    user.save(function (err, user) {
+      if (err) {
+        res.status(400);
+        res.send("email already in use");
+        return;
+      }
+      saveUser(user, req, res);
+    });
   });
 }
 
