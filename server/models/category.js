@@ -22,9 +22,7 @@ var categoryComponentSchema = new mongoose.Schema({
 
 var categorySchema = new mongoose.Schema({
   parentCategory: categoryComponentSchema,
-  subcategories: [{
-    type: categoryComponentSchema
-  }]
+  subcategories: [categoryComponentSchema]
 });
 
 module.exports.Category = mongoose.model('Category', categorySchema);
