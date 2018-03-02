@@ -40,6 +40,17 @@ export class AuthService {
         });
   }
 
+  register(name: string, email: string, password: string): Observable<boolean>  {
+    return this.http.post<LoginModel>('api/register/email',
+        {name: name, email: email, password: password},
+        {headers: new HttpHeaders({'Content-Type': 'application/json'})})
+        .pipe(catchError(this.handleError))
+        .map(response => {
+          if (response.status == 'success') return true;
+          return false;
+        })
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status == 200) {
       return Observable.of({status: 'success'});
