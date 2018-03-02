@@ -1,21 +1,23 @@
-<ul class='nav flex-column'>
-    <li *ngFor='let category of categories'>
-        <div *ngIf='category.subcategories.length > 0; then thenBlock; else elseBlock'></div>
-        <ng-template #thenBlock>
-            <li class='nav-item dropdown'>
-                <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false'>{{category.name}}</a>
-                <div class='dropdown-menu'>   
+<div id='accordion'>
+    <div *ngFor='let category of categories; let i=index'>
+        <div class='card'>
+            <div class='card-header' id='i'>
+                <h5 class='mb-0'>
+                    <button class='btn btn-link' data-toggle='collapse' [attr.data-target]="'#'+category.name" aria-expanded='false' aria-controls='category.name'>
+                        {{category.name}}
+                    </button>
+                </h5>
+            </div>
+        
+            <div *ngIf='category.subcategories.length > 0'>
+                <div id='{{category.name}}' class='collapse multi-collapse' aria-label='i' data-patrent='#accordion'>
                     <div *ngFor='let subCategory of category.subcategories'>
-                        <a class='dropdown-item' href='#'>{{subCategory.name}}</a>
+                        <div class='card-body'>
+                            <a class='btn btn-link' href='#'>{{subCategory.name}}</a>
+                        </div>
                     </div>
                 </div>
-            </li>
-        </ng-template>
-
-        <ng-template #elseBlock>
-            <li class='nav-item'>
-                <a class='nav-link' href='#'>{{category.name}}</a>
-            </li>
-        </ng-template>
-    </li>
-</ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,5 +20,4 @@ export class SidenavComponent implements OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe(categories => this.categories = categories);
   }
-
 }
