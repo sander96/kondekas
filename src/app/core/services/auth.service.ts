@@ -27,6 +27,19 @@ export class AuthService {
         });
   }
 
+  logOut(): Observable<boolean> {
+    return this.http.get<LoginModel>('/api/logout')
+        .pipe(catchError(this.handleError))
+        .map(response => {
+          if (response.status == 'success') {
+            this._isAuthenticated = false;
+            this._isAdmin = false;
+            return true;
+          }
+          return false;
+        });
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status == 200) {
       return Observable.of({status: 'success'});

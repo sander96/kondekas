@@ -20,7 +20,7 @@
     </ul>
     <ul class="nav navbar-nav ml-auto" *ngIf="authService.isAuthenticated">
       <li class="nav-item">
-        <a class="btn btn-outline-danger" href="#">Log Out</a>
+        <button class="btn btn-outline-danger" (click)="onLogOut()">Log Out</button>
       </li>
     </ul>
   </div>

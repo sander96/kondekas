@@ -29,7 +29,7 @@ router.get('/auth-test', authentication.checkAuthentication, function (req, res)
 // Logout
 router.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/');
+  res.json({status: 'success'});
 });
 
 // Create new category

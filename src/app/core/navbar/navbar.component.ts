@@ -9,4 +9,18 @@ import {AuthService} from "../services/auth.service";
 export class NavbarComponent {
 
   constructor(public authService: AuthService) { }
+
+  onLogOut() {
+    this.authService.logOut().subscribe(
+        response => {
+          if (response) {
+            console.log("Logged out");
+          }
+        },
+        err => {
+          console.log("Error");
+          console.log(err);
+        }
+    )
+  }
 }
