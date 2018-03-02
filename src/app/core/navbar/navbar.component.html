@@ -10,12 +10,17 @@
           <a class="nav-link" routerLink="/about">About</a>
       </li>
     </ul>
-    <ul class="nav navbar-nav ml-auto">
+    <ul class="nav navbar-nav ml-auto" *ngIf="!authService.isAuthenticated">
       <li class="nav-item">
         <a class="btn btn-outline-primary mr-2" routerLink="/login">Login</a>
       </li>
       <li class="nav-item">
         <a class="btn btn-outline-primary" routerLink="/register">Register</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto" *ngIf="authService.isAuthenticated">
+      <li class="nav-item">
+        <a class="btn btn-outline-danger" href="#">Log Out</a>
       </li>
     </ul>
   </div>

@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
+import {LoginModel} from "../models/login.model";
 import {catchError} from "rxjs/operators";
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthService {
@@ -11,11 +13,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  authenticate(email: string, password: string): Observable<any> {
-    return this.http.post<string>('/api/login/email',
+  authenticate(email: string, password: string): Observable<boolean> {
+    return this.http.post<LoginModel>('/api/login/email',
         {email: email, password: password},
         {headers: new HttpHeaders({'Content-Type': 'application/json'})})
-        .pipe(catchError(this.handleError));
+        .pipe(catchError(this.handleError))
+        .map(response => {
+          if (response.status == 'success') {
+            this._isAuthenticated = true;
+            return true;
+          }
+          return false;
+        });
   }
 
   private handleError(error: HttpErrorResponse) {
