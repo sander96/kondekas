@@ -22,14 +22,24 @@ router.get('/auth/google/redirect', passport.authenticate('google'), function (r
 });
 
 // Authentication required to access the following resource
-router.get('/auth-test', authentication.checkAuthentication, function (req, res) {
-  res.send("Welcome " + req.user.accounts[0].email + ", only logged in users can see this message.");
+router.get('/auth/logged-in', function (req, res) {
+  if (req.user) {
+    res.json({
+      loggedIn: true
+    });
+  } else {
+    res.json({
+      loggedIn: false
+    });
+  }
 });
 
 // Logout
 router.get('/logout', function (req, res) {
   req.logout();
-  res.json({status: 'success'});
+  res.json({
+    status: 'success'
+  });
 });
 
 // Create new category
