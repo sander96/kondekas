@@ -1,0 +1,36 @@
+<div class='jumbotron'>
+    <h1 class="display-4">Shopping cart</h1>
+</div>
+
+<div class='container'>
+  <div class='row'>
+    <h4>Items in cart: {{cart.products.length}}</h4>
+  </div>
+
+  <div class='col'>
+    <div *ngFor='let product of cart.products'>
+      <div class='card'>
+        <div class='card-body'>
+          <h5 class='card-title'>{{product.title}}</h5>
+          <p class='card-text'>Description will be shown here!</p>
+          <button class='btn btn-primary' (click)='removeFromCart(product)'>Remove</button>
+          <div class='input-group mb-3'>
+            <div class='input-group-prepend'>
+              <label class='input-group-text' for='ammount'>Ammount</label>
+            </div>
+            <select class='custom-select' id='ammount'>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='row align-items-center justify-content-md-center'>
+    <button class='btn btn-primary btn-lg' (click)='purchase(cart)'>Proceed to payment</button>
+  </div>
+</div>

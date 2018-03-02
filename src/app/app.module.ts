@@ -18,19 +18,21 @@ import {AuthService} from "./core/services/auth.service";
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
+import { CartComponent } from './core/cart/cart.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
-  {path: 'content', component: ContentComponent}
+  {path: 'content', component: ContentComponent},
+  {path: 'cart', component: CartComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent, NavbarComponent, AboutComponent,
-      LoginComponent, RegisterComponent, SidenavComponent, HomeComponent
+      LoginComponent, RegisterComponent, SidenavComponent, HomeComponent, CartComponent
   ],
   imports: [
     ContentModule, BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),

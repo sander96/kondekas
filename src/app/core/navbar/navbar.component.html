@@ -11,6 +11,9 @@
       </li>
     </ul>
     <ul class="nav navbar-nav ml-auto" *ngIf="!authService.isAuthenticated">
+      <li class='nav-item'>
+        <a class='btn btn-outline-primary' routerLink='/cart'>Shopping cart</a>
+      </li>
       <li class="nav-item">
         <a class="btn btn-outline-primary mr-2" routerLink="/login">Login</a>
       </li>

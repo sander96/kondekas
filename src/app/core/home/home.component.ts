@@ -34,11 +34,3 @@ export class HomeComponent implements OnInit {
     this.productsRecommended = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
   }
 }
-
-/*export class testProduct  {
-  id: number;
-  albumId: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}*/
