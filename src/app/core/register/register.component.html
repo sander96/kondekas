@@ -1,23 +1,59 @@
 <div class="jumbotron">
   <h1 class="display-4">Register</h1>
 </div>
+
 <div class="container" id="register-container">
-  <form action="/api/register/email" method="POST">
+  <form name='registerForm' action="/api/register/email" method="POST">
+    
     <div class="form-group">
-      <label for="name">First name:</label>
-      <input type="text" class="form-control" name="name" id="name">
+      <label for="name">Nimi:</label>
+      <input ngModel name='firstName' #firstName='ngModel' type="text" class="form-control" id="firstName" placeholder="Sisesta eesnimi"
+        required ng-model-options="{ updateOn: 'blur' }">
+      <div *ngIf='firstName.touched && !firstName.valid' class='alert alert-danger'>
+          Nimi on kohustuslik!
+      </div>
     </div>
+
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="text" class="form-control" name="email" id="email">
+      <input ngModel name='email' #email='ngModel' type="text" class="form-control" id="email" placeholder="Sisesta email"
+        required ng-model-options="{ updateOn: 'blur' }" pattern=".+@.+">
+      <div *ngIf='email.touched && !email.valid' class='alert alert-danger'>
+          <div *ngIf='email.errors.required'>Email on kohustuslik!</div>
+          <div *ngIf='email.errors.pattern'>See ei ole korrektne email!</div>
+      </div>
     </div>
+
+    <div ngModelGroup='passwordGroup' #passwordGroup='ngModelGroup' required>
+      <div class="form-group">
+        <label for="password">Parool:</label>
+        <input ngModel name='password' #password='ngModel' type="password" class="form-control" id="password" placeholder="Sisesta parool"
+          required ng-model-options="{ updateOn: 'blur' }" pattern="^(?=.*[A-ZÕÜÄÖ])(?=.*\d)[.A-ZÜÕÖÄa-züõöä\d@$!%*#?&]{8,}$">
+        <div *ngIf='password.touched && !password.valid' class='alert alert-danger'>
+          <div *ngIf='password.errors.pattern'>Parool peab olema vähemalt 8 märki pikk, sisaldama vähemalt ühte suurt tähte ja numbrit!</div>
+          <div *ngIf='password.errors.required'>Parool on kohustuslik!</div>
+        </div>
+        </div>
+
+      <div class='form-group'>
+        <label for="password">Parool uuesti:</label>
+        <input ngModel name='passwordConfirm' #passwordConfirm='ngModel' type="password" class="form-control" id="passwordConfirm" placeholder="Sisesta parool uuesti"
+          required ng-model-options="{ updateOn: 'blur' }" pattern="^(?=.*[A-ZÕÜÄÖ])(?=.*\d)[.A-ZÜÕÖÄa-züõöä\d@$!%*#?&]{8,}$">
+        <div *ngIf='passwordConfirm.touched && !passwordConfirm.valid' class='alert alert-danger'>
+          <div *ngIf='passwordConfirm.errors.pattern'>Parool peab olema vähemalt 8 märki pikk, sisaldama vähemalt ühte suurt tähte ja numbrit!</div>
+          <div *ngIf='passwordConfirm.errors.required'>Parool on kohustuslik!</div>
+        </div>
+      </div>
+
+      <div *ngIf='(passwordGroup.value?.password != passwordGroup.value?.passwordConfirm) && passwordGroup.touched' class='alert alert-danger'>
+        <div *ngIf='passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>Paroolid on erinevad!</div>
+      </div>
+    </div>
+
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" name="password" id="password">
+      <input class="btn btn-primary" type="submit" name="submit" value="Loo kasutaja">
     </div>
-    <div class="form-group">
-      <input type="submit" value="Register">
-    </div>
+
   </form>
 </div>
 <div class="container" id="register-container">
