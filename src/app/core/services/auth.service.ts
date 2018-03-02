@@ -11,7 +11,14 @@ export class AuthService {
   private _isAuthenticated: boolean = false;
   private _isAdmin: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.http.get<{loggedIn: boolean}>('/api/auth/logged-in')
+        .subscribe(response => {
+          if (response.loggedIn) {
+            this._isAuthenticated = true;
+          }
+        })
+  }
 
   authenticate(email: string, password: string): Observable<boolean> {
     return this.http.post<LoginModel>('/api/login/email',
