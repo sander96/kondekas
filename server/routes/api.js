@@ -51,4 +51,16 @@ router.post('/category/:category/:subcategory', authentication.checkAuthenticati
 // Read list of categories
 router.get('/category', categoryHandler.getCategories);
 
+// Update a category
+router.put('/category/:category', authentication.checkAuthentication, categoryHandler.updateCategory);
+
+// Update a subcategory
+router.put('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.updateSubcategory);
+
+// Delete a category
+router.delete('/category/:category', authentication.checkAuthentication, categoryHandler.deleteCategory);
+
+// Delete a subcategory
+router.delete('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.deleteSubcategory);
+
 module.exports = router;
