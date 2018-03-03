@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   authenticate(email: string, password: string): Observable<boolean> {
-    return this.http.post<LoginModel>('/api/login/email',
+    return this.http.post<LoginModel>('/api/auth/login/email',
         {email: email, password: password},
         {headers: new HttpHeaders({'Content-Type': 'application/json'})})
         .pipe(catchError(this.handleError))
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   logOut(): Observable<boolean> {
-    return this.http.get<LoginModel>('/api/logout')
+    return this.http.get<LoginModel>('/api/auth/logout')
         .pipe(catchError(this.handleError))
         .map(response => {
           if (response.status == 'success') {
@@ -48,7 +48,7 @@ export class AuthService {
   }
 
   register(name: string, email: string, password: string): Observable<boolean>  {
-    return this.http.post<LoginModel>('api/register/email',
+    return this.http.post<LoginModel>('api/auth/register/email',
         {name: name, email: email, password: password},
         {headers: new HttpHeaders({'Content-Type': 'application/json'})})
         .pipe(catchError(this.handleError))
