@@ -14,7 +14,7 @@ import { RegisterComponent } from "./core/register/register.component";
 import { HomeComponent } from './core/home/home.component';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { CategoriesService } from './core/services/categories.service';
-import {AuthService} from "./core/services/auth.service";
+import { AuthService } from "./core/services/auth.service";
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
@@ -26,7 +26,8 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
   {path: 'content', component: ContentComponent},
-  {path: 'cart', component: CartComponent}
+  {path: 'cart', component: CartComponent},
+  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'}
 ];
 
 @NgModule({
