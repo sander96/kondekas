@@ -7,10 +7,10 @@ var passport = require('passport');
 var categoryHandler = require('../controllers/categoryHandler');
 
 // User registration with email
-router.post('/register/email', authentication.registerEmail);
+router.post('/auth/register/email', authentication.registerEmail);
 
 // User login with email
-router.post('/login/email', passport.authenticate('local'), authentication.loginSuccess);
+router.post('/auth/login/email', passport.authenticate('local'), authentication.loginSuccess);
 
 // User registration with Google account
 router.get('/auth/google', passport.authenticate('google', {
@@ -22,25 +22,10 @@ router.get('/auth/google/redirect', passport.authenticate('google'), function (r
 });
 
 // Authentication required to access the following resource
-router.get('/auth/logged-in', function (req, res) {
-  if (req.user) {
-    res.json({
-      loggedIn: true
-    });
-  } else {
-    res.json({
-      loggedIn: false
-    });
-  }
-});
+router.get('/auth/logged-in', authentication.loggedIn);
 
 // Logout
-router.get('/logout', function (req, res) {
-  req.logout();
-  res.json({
-    status: 'success'
-  });
-});
+router.get('/auth/logout', authentication.logout);
 
 // Create new category
 router.post('/category/:category', authentication.checkAuthentication, categoryHandler.createCategory);

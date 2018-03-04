@@ -9,6 +9,9 @@
       <li class="nav-item">
           <a class="nav-link" routerLink="/about">About</a>
       </li>
+      <li *ngIf="authService.isAdmin" class="nav-item">
+        <a class="nav-link" routerLink="/admin">Manage</a>
+      </li>
     </ul>
     <ul class="nav navbar-nav ml-auto" *ngIf="!authService.isAuthenticated">
       <li class='nav-item'>

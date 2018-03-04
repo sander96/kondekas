@@ -77,5 +77,26 @@ module.exports.registerEmail = function (req, res) {
 }
 
 module.exports.loginSuccess = function (req, res) {
-  return res.json({status: 'success'});
+  return res.json({
+    status: 'success'
+  });
+}
+
+module.exports.loggedIn = function (req, res) {
+  if (req.user) {
+    res.json({
+      loggedIn: true
+    });
+  } else {
+    res.json({
+      loggedIn: false
+    });
+  }
+}
+
+module.exports.logout = function (req, res) {
+  req.logout();
+  res.json({
+    status: 'success'
+  });
 }

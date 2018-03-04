@@ -16,9 +16,6 @@ import { HomeComponent } from './core/home/home.component';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { CategoriesService } from './core/services/categories.service';
 import { AuthService } from "./core/services/auth.service";
-
-//import { CartComponent } from './core/purchase/cart/cart.component';
-//import { PaymentComponent } from './core/purchase/payment/payment.component';
 import { PurchaseComponent } from './core/purchase/purchase.component';
 
 // Google maps
@@ -33,6 +30,7 @@ const appRoutes: Routes = [
   {path: 'content', component: ContentComponent},
   {path: 'cart', component: PurchaseComponent},
   {path: 'payment', component: PurchaseComponent}
+  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'}
 ];
 
 @NgModule({
