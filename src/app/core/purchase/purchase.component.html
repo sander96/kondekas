@@ -1,0 +1,53 @@
+<div class='jumbotron'>
+  <div *ngIf='inCart'>
+    <h1 class="display-4">Shopping Cart</h1>
+  </div>
+  <div *ngIf='!inCart'>
+    <h1 class="display-4">Payment</h1>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-6'>
+      <div *ngIf='inCart'><app-cart></app-cart></div>
+    <div *ngIf='!inCart'><app-payment></app-payment></div>
+    </div>
+
+    <div class='col-md-6'>
+      <h5>Payment details</h5>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf='cart.size > 0'>
+          <ng-container *ngFor='let item of getKeys(); let i=index'>
+            <tr>
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.title}}</td>
+              <td>{{cart.get(item)}}</td>
+              <td>{{item.price}}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <th scope="row"></th>
+            <td colspan='2'><b>TOTAL: </b></td>
+            <td><b>{{totalCost}}</b></td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class='row align-items-start justify-content-start'>
+    <button [disabled]='!authService.isAuthenticated || !cart.size>0' class='btn btn-primary' type='button' (click)='changeContent()'>{{getButtonText()}}</button>
+  </div>
+
+</div>

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import {FormsModule} from "@angular/forms";
 
 import {ContentModule} from "./core/content/content.module";
+import {PurchaseModule} from './core/purchase/purchase.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from "./core/navbar/navbar.component";
@@ -14,11 +15,15 @@ import { RegisterComponent } from "./core/register/register.component";
 import { HomeComponent } from './core/home/home.component';
 import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { CategoriesService } from './core/services/categories.service';
-import {AuthService} from "./core/services/auth.service";
+import { AuthService } from "./core/services/auth.service";
+
+//import { CartComponent } from './core/purchase/cart/cart.component';
+//import { PaymentComponent } from './core/purchase/payment/payment.component';
+import { PurchaseComponent } from './core/purchase/purchase.component';
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
-import { CartComponent } from './core/cart/cart.component';
+
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,16 +31,17 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
   {path: 'content', component: ContentComponent},
-  {path: 'cart', component: CartComponent}
+  {path: 'cart', component: PurchaseComponent},
+  {path: 'payment', component: PurchaseComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent, NavbarComponent, AboutComponent,
-      LoginComponent, RegisterComponent, SidenavComponent, HomeComponent, CartComponent
+      LoginComponent, RegisterComponent, SidenavComponent, HomeComponent
   ],
   imports: [
-    ContentModule, BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),
+    ContentModule, PurchaseModule, BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'})
   ],
   providers: [CategoriesService, AuthService],
