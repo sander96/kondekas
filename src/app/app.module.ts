@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'content', component: ContentComponent},
   {path: 'cart', component: PurchaseComponent},
-  {path: 'payment', component: PurchaseComponent}
+  {path: 'payment', component: PurchaseComponent},
   {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'}
 ];
 
