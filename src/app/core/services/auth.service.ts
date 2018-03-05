@@ -53,7 +53,10 @@ export class AuthService {
         {headers: new HttpHeaders({'Content-Type': 'application/json'})})
         .pipe(catchError(this.handleError))
         .map(response => {
-          if (response.status == 'success') return true;
+          if (response.status == 'success') {
+            this._isAuthenticated = true;
+            return true;
+          }
           return false;
         })
   }
