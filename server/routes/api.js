@@ -5,6 +5,7 @@ var authentication = require('../controllers/authentication');
 var passport = require('passport');
 
 var categoryHandler = require('../controllers/categoryHandler');
+var productHandler = require('../controllers/productHandler');
 
 // User registration with email
 router.post('/auth/register/email', authentication.registerEmail);
@@ -47,5 +48,11 @@ router.delete('/category/:category', authentication.checkAuthentication, categor
 
 // Delete a subcategory
 router.delete('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.deleteSubcategory);
+
+// Add a product
+router.post('/category/:category/:subcategory/:product', authentication.checkAuthentication, productHandler.createProduct);
+
+// Get a product
+router.get('/category/:category/:subcategory/:product', productHandler.getProduct);
 
 module.exports = router;
