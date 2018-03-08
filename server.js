@@ -35,6 +35,11 @@ app.use(passport.session());
 // API location
 app.use('/api', api);
 
+// Bootstrap CDN fallback
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+
+// Static files
 app.use(express.static('public'))
 
 // Send all other requests to the Angular app
