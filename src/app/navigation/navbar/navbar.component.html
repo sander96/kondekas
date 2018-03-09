@@ -1,4 +1,10 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class='nav-item mr-2'>
+    <button class="btn btn-outline-primary" type="button" (click) ='toggleSidebar()'>
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+
   <a class="navbar-brand" routerLink="/">Kondekas</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,7 +21,7 @@
     </ul>
     <ul class="nav navbar-nav ml-auto" *ngIf="!authService.isAuthenticated">
       <li class='nav-item'>
-        <a class='btn btn-outline-primary' routerLink='/cart'>Shopping cart</a>
+        <a class='btn btn-outline-primary mr-2' routerLink='/cart'>Shopping cart</a>
       </li>
       <li class="nav-item">
         <a class="btn btn-outline-primary mr-2" routerLink="/login">Login</a>

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from '../services/categories.service';
-import { Category } from '../models/category.model';
+import { CategoriesService } from '../../core/services/categories.service';
+import { Category } from '../../core/models/category.model';
 
 @Component({
-  selector: 'app-sidenav',
+  selector: 'sidebar',
   moduleId: module.id,
-  templateUrl: './sidenav.component.html',
+  templateUrl: './sidebar.component.html',
 })
-export class SidenavComponent implements OnInit {
+export class SidebarComponent implements OnInit {
 
   categories: Category[];
 

@@ -5,4 +5,13 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   templateUrl: 'app.component.html'
 })
-export class AppComponent { }
+export class AppComponent {
+  
+  showSidebar: boolean = true;
+
+  constructor() { }
+
+  recieveSidebarChange(event: boolean) {
+    this.showSidebar = event;
+  }
+}

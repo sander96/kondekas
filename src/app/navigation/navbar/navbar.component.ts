@@ -1,12 +1,15 @@
-import { Component } from "@angular/core";
-import {AuthService} from "../services/auth.service";
+import { Component, Output, EventEmitter } from "@angular/core";
+import { AuthService } from "../../core/services/auth.service";
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'navbar',
   moduleId: module.id,
   templateUrl: 'navbar.component.html'
 })
 export class NavbarComponent {
+  @Output() changeSidebarEvent = new EventEmitter<boolean>();
+
+  showSidebar: boolean = true;
 
   constructor(public authService: AuthService) { }
 
@@ -22,5 +25,10 @@ export class NavbarComponent {
           console.log(err);
         }
     )
+  }
+
+  toggleSidebar() {
+    this.showSidebar=!this.showSidebar;
+    this.changeSidebarEvent.emit(this.showSidebar);
   }
 }

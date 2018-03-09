@@ -1,11 +1,11 @@
-<app-navbar></app-navbar>
+<navbar (changeSidebarEvent)='recieveSidebarChange($event)'></navbar>
 
 <div class="container-fluid">
-    <div class="row flex-xl-nowrap">
-      <div class="col-2-auto bg-success">
-        <app-sidenav></app-sidenav>
+    <div class="row">
+      <div class="col-2-auto bg-primary" *ngIf='showSidebar'>
+        <sidebar></sidebar>
       </div>
-      <main class="col-10 bd-content" role="main">
+      <main class="col bd-content" role="main">
         <router-outlet></router-outlet>
       </main>
     </div>
