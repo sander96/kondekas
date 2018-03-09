@@ -49,10 +49,13 @@ router.delete('/category/:category', authentication.checkAuthentication, categor
 // Delete a subcategory
 router.delete('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.deleteSubcategory);
 
+// Read list of products
+router.get('/product/:category/:subcategory', productHandler.getSubcategoryProducts);
+
 // Add a product
-router.post('/category/:category/:subcategory/:product', authentication.checkAuthentication, productHandler.createProduct);
+router.post('/product/:category/:subcategory/:product', authentication.checkAuthentication, productHandler.createProduct);
 
 // Get a product
-router.get('/category/:category/:subcategory/:product', productHandler.getProduct);
+router.get('/product/:category/:subcategory/:product', productHandler.getProduct);
 
 module.exports = router;

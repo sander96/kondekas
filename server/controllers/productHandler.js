@@ -97,14 +97,27 @@ module.exports.getProduct = function (req, res) {
       });
     }
 
-    Product.findOne({
-      productId: req.params.product,
-      subcategoryId: subcategory
-    }, {
-      '_id': 0,
-      '__v': 0,
-      'subcategoryId': 0
-    }, function (err, product) {
+    Product.aggregate([{
+        $match: {
+          productId: req.params.product,
+          subcategoryId: subcategory
+        }
+      },
+      {
+        $project: {
+          name: '$name.et', //hardcoded estonian
+          description: '$description.et',
+          _id: 0,
+          images: 1,
+          price: 1,
+          quantity: 1,
+          quantitySold: 1,
+          averageRating: 1,
+          totalRatings: 1,
+          productId: 1
+        }
+      }
+    ], function (err, products) {
       if (err) {
         res.status(400);
         return res.json({
@@ -112,7 +125,7 @@ module.exports.getProduct = function (req, res) {
         });
       }
 
-      if (product == null) {
+      if (products.length == 0) {
         res.status(400);
         return res.json({
           "err": "product doesn't exist"
@@ -120,7 +133,56 @@ module.exports.getProduct = function (req, res) {
       }
 
       res.status(200);
-      res.json(product);
+      res.json(products[0]);
+    });
+  });
+}
+
+module.exports.getSubcategoryProducts = function (req, res) {
+  getSubcategoryId(req, function (err, subcategory) {
+    if (err) {
+      res.status(400);
+      return res.json({
+        "err": err
+      });
+    }
+
+    if (subcategory == null) {
+      res.status(400);
+      return res.json({
+        "err": "category doesn't exist"
+      });
+    }
+
+    Product.aggregate([{
+        $match: {
+          subcategoryId: subcategory
+        }
+      },
+      {
+        $project: {
+          name: '$name.et', //hardcoded estonian
+          description: '$description.et',
+          _id: 0,
+          images: 1,
+          price: 1,
+          quantity: 1,
+          quantitySold: 1,
+          averageRating: 1,
+          totalRatings: 1,
+          productId: 1
+        }
+      }
+    ], function (err, products) {
+      if (err) {
+        res.status(400);
+        return res.json({
+          "err": err
+        });
+      }
+
+      res.status(200);
+      res.json(products);
     });
   });
 }
