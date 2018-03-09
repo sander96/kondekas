@@ -1,14 +1,14 @@
 <div class="jumbotron">
-  <h1 class="display-4">Register</h1>
+  <h1 class="display-4">{{ 'navbar.register' | translate:param }}</h1>
 </div>
 
 <div class="container" id="register-container">
   <form #registerForm='ngForm' novalidate name='registerForm' (ngSubmit)="onRegister(registerForm)">
     <div class="form-group">
-      <label>Nimi:</label>
+      <label>{{ 'register.name' | translate:param }}:</label>
       <input [(ngModel)]='registerData.name' #nameInput='ngModel' name='name' type="text" class="form-control" required>
       <div *ngIf='nameInput.touched && !nameInput.valid' class='alert alert-danger'>
-        See väli on kohustuslik!
+        {{ 'register.required' | translate:param }}
       </div>
     </div>
 
@@ -16,42 +16,44 @@
       <label>Email:</label>
       <input [(ngModel)]='registerData.email' #emailInput='ngModel' name='email' type="text" class="form-control" required>
       <div *ngIf='emailInput.touched && !emailInput.valid' class='alert alert-danger'>
-        <div *ngIf='emailInput.errors.required'>See väli on kohustuslik!</div>
-        <div *ngIf='emailInput.errors.pattern'>See ei ole korrektne email!</div>
+        <div *ngIf='emailInput.errors.required'>{{ 'register.required' | translate:param }}!</div>
+        <div *ngIf='emailInput.errors.pattern'>{{ 'register.incorrect' | translate:param }}</div>
       </div>
     </div>
 
 
     <div ngModelGroup='passwordGroup' #passwordGroup='ngModelGroup' required>
       <div class="form-group">
-        <label>Parool:</label>
+        <label>{{ 'login.password' | translate:param }}:</label>
         <input [(ngModel)]='registerData.password' #passwordInput='ngModel' name='password' type="password" class="form-control"
           required pattern="^(?=.*[A-ZÕÜÄÖ])(?=.*\d)[.A-ZÜÕÖÄa-züõöä\d@$!%*#?&]{8,}$">
         <div *ngIf='passwordInput.touched && !passwordInput.valid' class='alert alert-danger'>
-          <div *ngIf='passwordInput.errors.pattern'>Parool peab olema vähemalt 8 märki pikk, sisaldama vähemalt ühte suurt tähte ja numbrit!</div>
-          <div *ngIf='passwordInput.errors.required'>See väli on kohustuslik!</div>
+          <div *ngIf='passwordInput.errors.pattern'>{{ 'register.pwdReq' | translate:param}}!</div>
+          <div *ngIf='passwordInput.errors.required'>{{ 'register.required' | translate:param }}!</div>
         </div>
       </div>
 
       <div class='form-group'>
-        <label>Parool uuesti:</label>
+        <label>{{ 'register.pwdRepeat' | translate:param }}</label>
         <input ngModel #passwordConfirmInput='ngModel' name='passwordConfirm' type="password" class="form-control" required validateEqual='passwordInput'>
         <div *ngIf='passwordConfirmInput.touched && !passwordConfirmInput.valid' class='alert alert-danger'>
-          <div *ngIf='passwordConfirmInput.errors.required'>See väli on kohustuslik!</div>
+          <div *ngIf='passwordConfirmInput.errors.required'>{{ 'register.required' | translate:param }}!</div>
         </div>
       </div>
 
       <div *ngIf='(passwordGroup.value?.password != passwordGroup.value?.passwordConfirm) && passwordGroup.touched' class='alert alert-danger'>
-        <div *ngIf='passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>Paroolid on erinevad!</div>
+        <div *ngIf='passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>{{ 'register.pwdErr' | translate:param }}!</div>
       </div>
     </div>
 
     <div class="form-group">
-      <button class="btn btn-primary" type="submit" [disabled]='registerForm.invalid || passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>Loo kasutaja</button>
+      <button class="btn btn-primary" type="submit" [disabled]='registerForm.invalid || passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>
+        {{ 'register.create' | translate:param }}
+      </button>
     </div>
 
   </form>
 </div>
 <div class="container" id="register-container">
-  <a href="/api/auth/google">Sign in with Google+</a>
+  <a href="/api/auth/google">{{ 'login.signGoogle' | translate:param }}</a>
 </div>

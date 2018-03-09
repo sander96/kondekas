@@ -1,13 +1,13 @@
 <div class="jumbotron">
-  <h1 class="display-4">About</h1>
+  <h1 class="display-4">{{ 'navbar.about' | translate:param }}</h1>
 
-  <h2>Veebipood kondekas</h2>
-  <p>See lehekülg on projekt aines "Veebirakenduste loomine". Autoriteks on Sander Pärn, Markus Saarniit ja Herman Meier.</p>
+  <h2>{{ 'about.heading' | translate:param }}</h2>
+  <p>{{ 'about.explanation' | translate:param }}</p>
 
   <ul style='list-style-type:none; padding-left:0'>
     <li>Email: tugi@kondekas.ee</li>
     <li>Tel: +372 123 456 789</li>
-    <li>Aadress: Liivi 2, Tartu, Eesti</li>
+    <li>{{ 'about.address' | translate:param }}</li>
   </ul>
 
   <agm-map [latitude]='lat' [longitude]='lon' [zoom]='zoom'>

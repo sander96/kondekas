@@ -1,0 +1,33 @@
+{
+  "navbar": {
+    "about": "About",
+    "login": "Login",
+    "logout": "Log out",
+    "register": "Register",
+    "admin": "Manage",
+    "cart": "Shopping Cart"
+  },
+
+  "about": {
+    "heading": "E-commerce platform Kondekas",
+    "explanation": "This webpage is project in subject \"Making web applications\". Authors are Sander Pärn, Markus Saarniit and Herman Meier.",
+    "address": "Address: Liivi 2, Tartu, Estonia"
+  },
+
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "loginBtn": "Log In",
+    "signGoogle": "Sign in with Google+"
+  },
+
+  "register": {
+    "name": "Name",
+    "required": "This field is required",
+    "incorrect": "This is not correct email",
+    "pwdReq": "Password must be at least 8 characters long, contain at least one capital letter and a number",
+    "pwdErr": "Passwords do not match",
+    "pwdRepeat": "Repeat password",
+    "create": "Create account"
+  }
+}

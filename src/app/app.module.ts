@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {ContentModule} from "./core/content/content.module";
 import {PurchaseModule} from './core/purchase/purchase.module';
@@ -21,8 +23,12 @@ import { AuthService } from "./core/services/auth.service";
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
-
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -40,8 +46,15 @@ const appRoutes: Routes = [
     AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent
   ],
   imports: [
-    ContentModule, PurchaseModule, BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'})
+    ContentModule, PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'}),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [CategoriesService, AuthService],
   bootstrap: [AppComponent]

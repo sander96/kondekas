@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent {
   public password: string;
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              public translate: TranslateService) { }
 
   onLogIn(form: NgForm) {
     if (form.valid) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from '@angular/forms';
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit{
   registrationSuccess: boolean;
 
   constructor(private authService: AuthService,
-    private router: Router) { }
+              private router: Router,
+              public translate: TranslateService) { }
 
   ngOnInit()  {
     this.registerData = {

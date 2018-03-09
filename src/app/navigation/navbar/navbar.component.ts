@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { AuthService } from "../../core/services/auth.service";
 
 @Component({
@@ -11,7 +12,15 @@ export class NavbarComponent {
 
   showSidebar: boolean = true;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService,
+              public translate: TranslateService) {
+    translate.addLangs(["en", "ee"]);
+    translate.setDefaultLang('en');
+    translate.use('en');
+
+    let browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|ee/) ? browserLang : 'en');
+  }
 
   onLogOut() {
     this.authService.logOut().subscribe(

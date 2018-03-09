@@ -1,0 +1,33 @@
+{
+  "navbar": {
+    "about": "Meist",
+    "login": "Sisene",
+    "logout": "Välju",
+    "register": "Registreeri",
+    "admin": "Halda",
+    "cart": "Ostukorv"
+  },
+
+  "about": {
+    "heading": "Veebipood kondekas",
+    "explanation": "See lehekülg on projekt aines \"Veebirakenduste loomine\". Autoriteks on Sander Pärn, Markus Saarniit ja Herman Meier.",
+    "address": "Aadress: Liivi 2, Tartu, Eesti"
+  },
+
+  "login": {
+    "email": "Email",
+    "password": "Parool",
+    "loginBtn": "Sisene",
+    "signGoogle": "Sisene Google+ kontoga"
+  },
+
+  "register": {
+    "name": "Nimi",
+    "required": "See väli on kohustuslik",
+    "incorrect": "See email ei ole korrektne",
+    "pwdReq": "Parool peab olema vähemalt 8 märki pikk, sisaldama vähemalt ühte suurt tähte ja numbrit",
+    "pwdErr": "Paroolid on erinevad",
+    "pwdRepeat": "Parool uuesti",
+    "create": "Loo kasutaja"
+  }
+}
