@@ -4,8 +4,9 @@ import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 
-import {ContentModule} from "./core/content/content.module";
+//import {ContentModule} from "./core/content/content.module";
 import {PurchaseModule} from './core/purchase/purchase.module';
 
 import { AppComponent } from './app.component';
@@ -23,7 +24,7 @@ import { AuthService } from "./core/services/auth.service";
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { ProductService } from './core/services/product.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
-  {path: 'content', component: ContentComponent},
+  {path: 'content', loadChildren: './core/content/content.module#ContentModule'},
   {path: 'cart', component: PurchaseComponent},
   {path: 'payment', component: PurchaseComponent},
   {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'}
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
     AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent
   ],
   imports: [
-    ContentModule, PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes),
+    PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'}),
     TranslateModule.forRoot({
       loader: {
@@ -56,7 +57,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [CategoriesService, AuthService],
+  providers: [CategoriesService, AuthService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

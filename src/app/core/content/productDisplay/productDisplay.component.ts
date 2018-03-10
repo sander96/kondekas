@@ -1,21 +1,28 @@
-import {Component, OnInit} from "@angular/core";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import { Component, OnInit, Input } from "@angular/core";
 import { Product } from "../../models/product.model";
-import { Observable } from "rxjs/Observable";
+import { Category } from "../../models/category.model";
 
 @Component({
-  selector: 'app-productDisplay',
+  selector: 'productDisplay',
   moduleId: module.id,
   templateUrl: './productDisplay.component.html'
 })
-export class ProductDisplayComponent implements OnInit{
-  products: Observable<Product[]>;
-  readonly ROOT_URL = 'https://jsonplaceholder.typicode.com';
+export class ProductDisplayComponent implements OnInit {
+  @Input() productsToDisplay: Array<Product>;
+  viewStyle = true;
 
-  constructor(private http: HttpClient) {}
+  constructor() { }
 
   ngOnInit() {
-    let params = new HttpParams().set('albumId', '1');
-    this.products = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
+    this.productsToDisplay=new Array;
   }
+
+  toggleGridView()  {
+    this.viewStyle=true;
+  }
+
+  toggleListView()  {
+    this.viewStyle=false;
+  }
+
 }

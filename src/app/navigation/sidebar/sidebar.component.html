@@ -13,7 +13,7 @@
                 <div id='{{category.name}}' class='collapse multi-collapse' aria-label='i' data-patrent='#accordion'>
                     <div *ngFor='let subCategory of category.subcategories'>
                         <div class='card-body'>
-                            <a class='btn btn-link' href='#'>{{subCategory.name}}</a>
+                            <button class='btn btn-link' type='button' [routerLink]="['/content', category.path, subCategory.path]">{{subCategory.name}}</button>
                         </div>
                     </div>
                 </div>
