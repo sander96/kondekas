@@ -10,6 +10,16 @@ require('./server/db');
 const passport = require('passport');
 require('./server/config/authStrategies');
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(function (req, res, next) {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect('https://' + req.headers.host + req.url);
+    } else {
+      next();
+    }
+  });
+}
+
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');
 
