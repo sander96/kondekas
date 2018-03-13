@@ -1,3 +1,89 @@
 <div class="jumbotron">
   <h1 class="display-4">Products</h1>
 </div>
+
+<div class="container">
+  <h1>Add products</h1>
+  <form #productForm="ngForm" novalidate (ngSubmit)="addProduct(productForm)">
+    <div class="form-group">
+      <div class="row">
+        <label for="category">Category</label>
+      </div>
+      <div class="row">
+        <select class="form-control col-9" id="category"
+                [(ngModel)]="selectedCategory"
+                name="category" required>
+          <option></option>
+          <option *ngFor="let category of categories | async" [ngValue]="category">
+            {{ category.name }}
+          </option>
+        </select>
+        <button class="btn btn-primary col-3" (click)="resetModal()" data-toggle="modal" data-target="#addCategoryModal">
+          Add category
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <label for="subCategory">Subcategory</label>
+      </div>
+      <div class="row">
+        <select *ngIf="selectedCategory" class="form-control col-9" id="subCategory"
+                [(ngModel)]="selectedSubcategory"
+                name="subCategory" required>
+          <option *ngFor="let subCat of selectedCategory.subcategories" [ngValue]="subCat">
+            {{ subCat.name }}
+          </option>
+        </select>
+        <select *ngIf="!selectedCategory" class="form-control col-9">
+        </select>
+        <button class="btn btn-primary col-3">Add Subcategory</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="addCategoryModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Add category</h2>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form #categoryForm="ngForm" novalidate>
+          <div class="form-group">
+            <label for="estonian">Estonian name</label>
+            <input class="form-control" id="estonian" name="estonian"
+                   [(ngModel)]="newCategory.et" required>
+          </div>
+          <div class="form-group">
+            <label for="english">English name</label>
+            <input class="form-control" id="english" name="english"
+                   [(ngModel)]="newCategory.en" required>
+          </div>
+
+          <div class="row m-2" *ngFor="let sub of newCategory.subcategories; let i = index">
+            <div class="col-5">
+              <input class="form-control" required placeholder="Estonian subcategory name"
+                     [(ngModel)]="sub.et" name="etSubcategoryName">
+            </div>
+            <div class="col-5">
+              <input class="form-control" required placeholder="English subcategory name"
+                     [(ngModel)]="sub.en" name="enSubcategoryName">
+            </div>
+            <div class="col-2">
+              <button class="btn btn-danger" (click)="removeSubCategoryFromModal(i)">Delete</button>
+            </div>
+          </div>
+
+          <button class="btn btn-success m-2" (click)="addSubCategoryFromModal()">Add subcategory</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="addCategory(categoryForm)">Add category</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,12 +14,12 @@ export class NavbarComponent {
 
   constructor(public authService: AuthService,
               public translate: TranslateService) {
-    translate.addLangs(["en", "ee"]);
+    translate.addLangs(["en", "et"]);
     translate.setDefaultLang('en');
     translate.use('en');
 
     let browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|ee/) ? browserLang : 'en');
+    translate.use(browserLang.match(/en|et/) ? browserLang : 'en');
   }
 
   onLogOut() {
