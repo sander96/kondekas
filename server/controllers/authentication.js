@@ -15,15 +15,6 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-module.exports.checkAuthentication = function checkAuthentication(req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(400);
-    return res.send("You do not have access to this resource.");
-  }
-}
-
 function saveUser(user, req, res) {
   var newUser = new User({
     accounts: [user]

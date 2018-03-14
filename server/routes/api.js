@@ -3,6 +3,7 @@ const router = express.Router();
 
 var authentication = require('../controllers/authentication');
 var passport = require('passport');
+var authorization = require('../controllers/authorization');
 
 var categoryHandler = require('../controllers/categoryHandler');
 var productHandler = require('../controllers/productHandler');
@@ -28,32 +29,42 @@ router.get('/auth/logged-in', authentication.loggedIn);
 // Logout
 router.get('/auth/logout', authentication.logout);
 
+// Can user access admin resources
+router.get('/auth/access-admin-resources', authorization.isAuthorized(['admin']), authorization.successResponse);
+
+// Can user access worker resources
+router.get('/auth/access-worker-resources', authorization.isAuthorized(['admin', 'worker']), authorization.successResponse);
+
 // Create new category
-router.post('/category/:category', authentication.checkAuthentication, categoryHandler.createCategory);
+router.post('/category/:category', authorization.isAuthorized(['admin', 'worker']), categoryHandler.createCategory);
 
 // Create new subcategory
-router.post('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.createSubcategory);
+router.post('/category/:category/:subcategory', authorization.isAuthorized(['admin', 'worker']),
+  categoryHandler.createSubcategory);
 
 // Read list of categories
 router.get('/category', categoryHandler.getCategories);
 
 // Update a category
-router.put('/category/:category', authentication.checkAuthentication, categoryHandler.updateCategory);
+router.put('/category/:category', authorization.isAuthorized(['admin', 'worker']), categoryHandler.updateCategory);
 
 // Update a subcategory
-router.put('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.updateSubcategory);
+router.put('/category/:category/:subcategory', authorization.isAuthorized(['admin', 'worker']),
+  categoryHandler.updateSubcategory);
 
 // Delete a category
-router.delete('/category/:category', authentication.checkAuthentication, categoryHandler.deleteCategory);
+router.delete('/category/:category', authorization.isAuthorized(['admin', 'worker']), categoryHandler.deleteCategory);
 
 // Delete a subcategory
-router.delete('/category/:category/:subcategory', authentication.checkAuthentication, categoryHandler.deleteSubcategory);
+router.delete('/category/:category/:subcategory', authorization.isAuthorized(['admin', 'worker']),
+  categoryHandler.deleteSubcategory);
 
 // Read list of products
 router.get('/product/:category/:subcategory', productHandler.getSubcategoryProducts);
 
 // Add a product
-router.post('/product/:category/:subcategory/:product', authentication.checkAuthentication, productHandler.createProduct);
+router.post('/product/:category/:subcategory/:product', authorization.isAuthorized(['admin', 'worker']),
+  productHandler.createProduct);
 
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);
