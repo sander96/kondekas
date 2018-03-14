@@ -60,7 +60,7 @@ export class ProductsComponent implements OnInit{
           .subscribe(response => {
             console.log(JSON.stringify(this.newCategory));
             if (this.newCategory.subcategories && this.newCategory.subcategories.length > 0) {
-              this.uploadModalSubcategories(categoryUrl);
+              this.uploadModalSubcategories(categoryUrl, form);
             } else {
               $("#addCategoryModal").modal("hide");
               this.categories = this.getCategories();
@@ -72,7 +72,7 @@ export class ProductsComponent implements OnInit{
     }
   }
 
-  private uploadModalSubcategories(categoryUrl: string) {
+  private uploadModalSubcategories(categoryUrl: string, form: NgForm) {
     this.newCategory.subcategories.forEach((subCat, index) => {
       let subcategoryUrl = subCat.en.replace(/ /, "-").toLowerCase();
 
@@ -89,7 +89,13 @@ export class ProductsComponent implements OnInit{
       this.http.post<any>("/api/category/" + categoryUrl + "/" + subcategoryUrl,
                                                              body.toString(), httpOptions)
           .pipe(catchError(this.handleError))
-          .subscribe();
+          .subscribe(() => {
+            if (index === this.newCategory.subcategories.length - 1) {
+              $("#addCategoryModal").modal("hide");
+              this.categories = this.getCategories();
+              form.reset();
+            }
+          });
     });
   }
 

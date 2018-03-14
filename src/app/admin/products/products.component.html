@@ -67,11 +67,11 @@
           <div class="row m-2" *ngFor="let sub of newCategory.subcategories; let i = index">
             <div class="col-5">
               <input class="form-control" required placeholder="Estonian subcategory name"
-                     [(ngModel)]="sub.et" name="etSubcategoryName">
+                     [(ngModel)]="sub.et" name="etSubcategoryName" [innerHTML]="sub.et">
             </div>
             <div class="col-5">
               <input class="form-control" required placeholder="English subcategory name"
-                     [(ngModel)]="sub.en" name="enSubcategoryName">
+                     [(ngModel)]="sub.en" name="enSubcategoryName" [innerHTML]="sub.en">
             </div>
             <div class="col-2">
               <button class="btn btn-danger" (click)="removeSubCategoryFromModal(i)">Delete</button>
@@ -84,6 +84,14 @@
       <div class="modal-footer">
         <button class="btn btn-primary" (click)="addCategory(categoryForm)">Add category</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addSubCategoryModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- TODO create subcategory addition modal -->
     </div>
   </div>
 </div>
