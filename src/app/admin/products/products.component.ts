@@ -35,15 +35,47 @@ export class ProductsComponent implements OnInit{
     return this.http.get<Category[]>('api/category', httpOptions);
   }
 
-  addProduct(form: NgForm) {
+  newProduct: InternalProduct = new InternalProduct();
 
+  addProduct(form: NgForm) {
+    console.log(JSON.stringify(this.newProduct));
+    if (form.valid) {
+      let productUploadBaseUrl = `api/product/${this.selectedCategory.path}/${this.selectedSubcategory.path}/`;
+      let productUploadTopUrl =  `${this.newProduct.en_name.replace(/ /g, "-").toLowerCase()}`;
+      let body = new URLSearchParams();
+
+      for (let property in this.newProduct) {
+        if (this.newProduct.hasOwnProperty(property)) {
+          if (property === 'images') {
+            body.set(property, JSON.stringify(this.newProduct[property]).replace(/[\[\]]/g, ''));
+          } else {
+            body.set(property, this.newProduct[property]);
+          }
+        }
+      }
+
+      let httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        })
+      };
+
+      this.http.post<any>(productUploadBaseUrl + productUploadTopUrl, body.toString(), httpOptions)
+          .pipe(catchError(this.handleError))
+          .subscribe((res) => {
+            console.log(JSON.stringify(res));
+          });
+
+      this.newProduct = new InternalProduct();
+      form.reset();
+    }
   }
 
   newCategory: InternalCategory = new InternalCategory();
 
   addCategory(form: NgForm) {
     if (form.valid) {
-      let categoryUrl = this.newCategory.en.replace(/ /, "-").toLowerCase();
+      let categoryUrl = this.newCategory.en.replace(/ /g, "-").toLowerCase();
 
       let body = new URLSearchParams();
       body.set('en_name', this.newCategory.en);
@@ -74,7 +106,7 @@ export class ProductsComponent implements OnInit{
 
   private uploadModalSubcategories(categoryUrl: string, form: NgForm) {
     this.newCategory.subcategories.forEach((subCat, index) => {
-      let subcategoryUrl = subCat.en.replace(/ /, "-").toLowerCase();
+      let subcategoryUrl = subCat.en.replace(/ /g, "-").toLowerCase();
 
       let body = new URLSearchParams();
       body.set('en_name', subCat.en);
@@ -110,12 +142,36 @@ export class ProductsComponent implements OnInit{
   }
 
   removeSubCategoryFromModal(index: number) {
-    console.log(this.newCategory);
     this.newCategory.subcategories.splice(index, 1);
   }
 
-  addSubCategory() {
+  newSubCategory: InternalCategory = new InternalCategory();
 
+  addSubCategory(form: NgForm) {
+    if (form.valid && this.selectedCategory) {
+      let uploadUrl = this.selectedCategory.path + "/" + this.newSubCategory.en
+          .replace(/ /g, "-").toLowerCase();
+
+      let body = new URLSearchParams();
+      body.set('en_name', this.newSubCategory.en);
+      body.set('et_name', this.newSubCategory.et);
+
+      let httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        })
+      };
+
+      this.http.post<any>("/api/category/" + uploadUrl,
+          body.toString(), httpOptions)
+          .pipe(catchError(this.handleError))
+          .subscribe(() => {
+            $("#addSubCategoryModal").modal("hide");
+            this.categories = this.getCategories();
+            this.newSubCategory = new InternalCategory();
+            form.reset();
+          });
+    }
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -136,7 +192,17 @@ export class ProductsComponent implements OnInit{
 }
 
 class InternalCategory {
-  et: string;
-  en: string;
+  et: string = "";
+  en: string = "";
   subcategories: InternalCategory[] = [];
+}
+
+class InternalProduct {
+  et_name: string;
+  en_name: string;
+  et_description: string;
+  en_description: string;
+  images: string[] = [];
+  price: number;
+  quantity: number;
 }

@@ -38,9 +38,49 @@
         </select>
         <select *ngIf="!selectedCategory" class="form-control col-9">
         </select>
-        <button class="btn btn-primary col-3">Add Subcategory</button>
+        <button class="btn btn-primary col-3" data-toggle="modal" data-target="#addSubCategoryModal">
+          Add Subcategory
+        </button>
       </div>
     </div>
+
+    <div class="form-group">
+      <label>Estonian name</label>
+      <input class="form-control" [(ngModel)]="newProduct.et_name" name="et_name" required>
+    </div>
+
+    <div class="form-group">
+      <label>English name</label>
+      <input class="form-control" [(ngModel)]="newProduct.en_name" name="en_name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Estonian description</label>
+      <textarea class="form-control" [(ngModel)]="newProduct.et_description"
+                name="et_description" required rows="3">
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label>English description</label>
+      <textarea class="form-control" [(ngModel)]="newProduct.en_description"
+                name="en_description" required rows="3">
+      </textarea>
+    </div>
+
+    <!-- TODO image input -->
+
+    <div class="form-group">
+      <label>Quantity</label>
+      <input class="form-control" [(ngModel)]="newProduct.quantity" required name="quantity">
+    </div>
+
+    <div class="form-group">
+      <label>Price</label>
+      <input class="form-control" [(ngModel)]="newProduct.price" required name="price">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Add product</button>
   </form>
 </div>
 
@@ -67,11 +107,11 @@
           <div class="row m-2" *ngFor="let sub of newCategory.subcategories; let i = index">
             <div class="col-5">
               <input class="form-control" required placeholder="Estonian subcategory name"
-                     [(ngModel)]="sub.et" name="etSubcategoryName" [innerHTML]="sub.et">
+                     [(ngModel)]="sub.et" name="etSubcategoryName">
             </div>
             <div class="col-5">
               <input class="form-control" required placeholder="English subcategory name"
-                     [(ngModel)]="sub.en" name="enSubcategoryName" [innerHTML]="sub.en">
+                     [(ngModel)]="sub.en" name="enSubcategoryName">
             </div>
             <div class="col-2">
               <button class="btn btn-danger" (click)="removeSubCategoryFromModal(i)">Delete</button>
@@ -91,7 +131,27 @@
 <div class="modal fade" id="addSubCategoryModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <!-- TODO create subcategory addition modal -->
+      <div class="modal-header">
+        <h2 class="modal-title">Add category</h2>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form #subcategoryForm="ngForm" novalidate>
+          <div class="form-group">
+            <label for="estonian">Estonian name</label>
+            <input class="form-control" id="subcategoryEstonian" name="subcategoryEstonian"
+                   [(ngModel)]="newSubCategory.et" required>
+          </div>
+          <div class="form-group">
+            <label for="english">English name</label>
+            <input class="form-control" id="subcategoryEnglish" name="subcategoryEnglish"
+                   [(ngModel)]="newSubCategory.en" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="addSubCategory(subcategoryForm)">Add subcategory</button>
+      </div>
     </div>
   </div>
 </div>
