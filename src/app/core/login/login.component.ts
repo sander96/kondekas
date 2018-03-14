@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { NgForm } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -12,10 +12,16 @@ import {TranslateService} from "@ngx-translate/core";
 export class LoginComponent {
   public email: string;
   public password: string;
+  public returnUrl: string;
 
   constructor(private authService: AuthService,
               private router: Router,
+              private route: ActivatedRoute,
               public translate: TranslateService) { }
+
+  ngOnInit()  {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
 
   onLogIn(form: NgForm) {
     if (form.valid) {
@@ -23,7 +29,7 @@ export class LoginComponent {
           .subscribe(
               response => {
                 if (response) {
-                  this.router.navigateByUrl('/');
+                  this.router.navigateByUrl(this.returnUrl);
                 }
               },
               err => {

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+<nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-lg">
   <div class='nav-item mr-2'>
     <button class="btn btn-outline-primary" type="button" (click) ='toggleSidebar()'>
       <span class="navbar-toggler-icon"></span>
@@ -39,6 +39,9 @@
       </li>
     </ul>
     <ul class="nav navbar-nav ml-auto" *ngIf="authService.isAuthenticated">
+      <li class='nav-item'>
+        <a class='btn btn-outline-primary mr-2' routerLink='/cart'>{{ 'navbar.cart' | translate }}</a>
+      </li>
       <li class="nav-item">
         <button class="btn btn-outline-danger" (click)="onLogOut()">{{ 'navbar.logout' | translate }}</button>
       </li>

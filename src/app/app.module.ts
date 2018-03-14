@@ -7,7 +7,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 //import {ContentModule} from "./core/content/content.module";
-import {PurchaseModule} from './core/purchase/purchase.module';
+import { PurchaseModule } from './core/purchase/purchase.module';
+
+import { AuthGuard } from './core/guards/auth.guard';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from "./navigation/navbar/navbar.component";
@@ -38,8 +40,8 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'content', loadChildren: './core/content/content.module#ContentModule'},
   {path: 'cart', component: PurchaseComponent},
-  {path: 'payment', component: PurchaseComponent},
-  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'}
+  {path: 'payment', component: PurchaseComponent, canActivate: [AuthGuard]},
+  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -57,7 +59,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [CategoriesService, AuthService, ProductService],
+  providers: [CategoriesService, AuthService, ProductService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
