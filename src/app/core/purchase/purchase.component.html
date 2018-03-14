@@ -47,7 +47,7 @@
   </div>
 
   <div class='row align-items-start justify-content-start'>
-    <button [disabled]='!authService.isAuthenticated || !cart.size>0' class='btn btn-primary' type='button' (click)='changeContent()'>{{getButtonText()}}</button>
+    <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()'>{{getButtonText()}}</button>
   </div>
 
 </div>

@@ -13,10 +13,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="nav navbar-nav mr-auto">
       <li class="nav-item">
-          <a class="nav-link" routerLink="/about">{{ 'navbar.about' | translate:param }}</a>
+          <a class="nav-link" routerLink="/about">{{ 'navbar.about' | translate }}</a>
       </li>
       <li *ngIf="authService.isAdmin" class="nav-item">
-        <a class="nav-link" routerLink="/admin">{{ 'navbar.admin' | translate:param }}</a>
+        <a class="nav-link" routerLink="/admin">{{ 'navbar.admin' | translate }}</a>
       </li>
     </ul>
 
@@ -29,18 +29,18 @@
 
     <ul class="nav navbar-nav ml-auto" *ngIf="!authService.isAuthenticated">
       <li class='nav-item'>
-        <a class='btn btn-outline-primary mr-2' routerLink='/cart'>{{ 'navbar.cart' | translate:param }}</a>
+        <a class='btn btn-outline-primary mr-2' routerLink='/cart'>{{ 'navbar.cart' | translate }}</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-outline-primary mr-2" routerLink="/login">{{ 'navbar.login' | translate:param }}</a>
+        <a class="btn btn-outline-primary mr-2" routerLink="/login">{{ 'navbar.login' | translate }}</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-outline-primary" routerLink="/register">{{ 'navbar.register' | translate:param }}</a>
+        <a class="btn btn-outline-primary" routerLink="/register">{{ 'navbar.register' | translate }}</a>
       </li>
     </ul>
     <ul class="nav navbar-nav ml-auto" *ngIf="authService.isAuthenticated">
       <li class="nav-item">
-        <button class="btn btn-outline-danger" (click)="onLogOut()">{{ 'navbar.logout' | translate:param }}</button>
+        <button class="btn btn-outline-danger" (click)="onLogOut()">{{ 'navbar.logout' | translate }}</button>
       </li>
     </ul>
   </div>

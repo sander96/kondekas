@@ -1,13 +1,13 @@
 <div class="jumbotron">
-  <h1 class="display-4">{{ 'navbar.about' | translate:param }}</h1>
+  <h1 class="display-4">{{ 'navbar.about' | translate }}</h1>
 
-  <h2>{{ 'about.heading' | translate:param }}</h2>
-  <p>{{ 'about.explanation' | translate:param }}</p>
+  <h2>{{ 'about.heading' | translate }}</h2>
+  <p>{{ 'about.explanation' | translate }}</p>
 
   <ul style='list-style-type:none; padding-left:0'>
     <li>Email: tugi@kondekas.ee</li>
     <li>Tel: +372 123 456 789</li>
-    <li>{{ 'about.address' | translate:param }}</li>
+    <li>{{ 'about.address' | translate }}</li>
   </ul>
 
   <agm-map [latitude]='lat' [longitude]='lon' [zoom]='zoom'>

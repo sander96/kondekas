@@ -1,14 +1,14 @@
 <div class="jumbotron">
-  <h1 class="display-4">{{ 'navbar.register' | translate:param }}</h1>
+  <h1 class="display-4">{{ 'navbar.register' | translate }}</h1>
 </div>
 
 <div class="container" id="register-container">
   <form #registerForm='ngForm' novalidate name='registerForm' (ngSubmit)="onRegister(registerForm)">
     <div class="form-group">
-      <label>{{ 'register.name' | translate:param }}:</label>
+      <label>{{ 'register.name' | translate }}:</label>
       <input [(ngModel)]='registerData.name' #nameInput='ngModel' name='name' type="text" class="form-control" required>
       <div *ngIf='nameInput.touched && !nameInput.valid' class='alert alert-danger'>
-        {{ 'register.required' | translate:param }}
+        {{ 'register.required' | translate }}
       </div>
     </div>
 
@@ -16,44 +16,44 @@
       <label>Email:</label>
       <input [(ngModel)]='registerData.email' #emailInput='ngModel' name='email' type="text" class="form-control" required>
       <div *ngIf='emailInput.touched && !emailInput.valid' class='alert alert-danger'>
-        <div *ngIf='emailInput.errors.required'>{{ 'register.required' | translate:param }}!</div>
-        <div *ngIf='emailInput.errors.pattern'>{{ 'register.incorrect' | translate:param }}</div>
+        <div *ngIf='emailInput.errors.required'>{{ 'register.required' | translate }}!</div>
+        <div *ngIf='emailInput.errors.pattern'>{{ 'register.incorrect' | translate }}</div>
       </div>
     </div>
 
 
     <div ngModelGroup='passwordGroup' #passwordGroup='ngModelGroup' required>
       <div class="form-group">
-        <label>{{ 'login.password' | translate:param }}:</label>
+        <label>{{ 'login.password' | translate }}:</label>
         <input [(ngModel)]='registerData.password' #passwordInput='ngModel' name='password' type="password" class="form-control"
           required pattern="^(?=.*[A-ZÕÜÄÖ])(?=.*\d)[.A-ZÜÕÖÄa-züõöä\d@$!%*#?&]{8,}$">
         <div *ngIf='passwordInput.touched && !passwordInput.valid' class='alert alert-danger'>
-          <div *ngIf='passwordInput.errors.pattern'>{{ 'register.pwdReq' | translate:param}}!</div>
-          <div *ngIf='passwordInput.errors.required'>{{ 'register.required' | translate:param }}!</div>
+          <div *ngIf='passwordInput.errors.pattern'>{{ 'register.pwdReq' | translate}}!</div>
+          <div *ngIf='passwordInput.errors.required'>{{ 'register.required' | translate }}!</div>
         </div>
       </div>
 
       <div class='form-group'>
-        <label>{{ 'register.pwdRepeat' | translate:param }}</label>
+        <label>{{ 'register.pwdRepeat' | translate }}</label>
         <input ngModel #passwordConfirmInput='ngModel' name='passwordConfirm' type="password" class="form-control" required validateEqual='passwordInput'>
         <div *ngIf='passwordConfirmInput.touched && !passwordConfirmInput.valid' class='alert alert-danger'>
-          <div *ngIf='passwordConfirmInput.errors.required'>{{ 'register.required' | translate:param }}!</div>
+          <div *ngIf='passwordConfirmInput.errors.required'>{{ 'register.required' | translate }}!</div>
         </div>
       </div>
 
       <div *ngIf='(passwordGroup.value?.password != passwordGroup.value?.passwordConfirm) && passwordGroup.touched' class='alert alert-danger'>
-        <div *ngIf='passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>{{ 'register.pwdErr' | translate:param }}!</div>
+        <div *ngIf='passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>{{ 'register.pwdErr' | translate }}!</div>
       </div>
     </div>
 
     <div class="form-group">
       <button class="btn btn-primary" type="submit" [disabled]='registerForm.invalid || passwordGroup.value?.password != passwordGroup.value?.passwordConfirm'>
-        {{ 'register.create' | translate:param }}
+        {{ 'register.create' | translate }}
       </button>
     </div>
 
   </form>
 </div>
 <div class="container" id="register-container">
-  <a href="/api/auth/google">{{ 'login.signGoogle' | translate:param }}</a>
+  <a href="/api/auth/google">{{ 'login.signGoogle' | translate }}</a>
 </div>
