@@ -1,6 +1,59 @@
 var mongoose = require('mongoose');
+const multer  = require('multer');
+const fs = require('fs');
+const path = require('path');
 var Product = require('../models/product').Product;
 var Category = require('../models/category').Category;
+
+
+let storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    let filePath = ['public', 'images', req.params.category
+      , req.params.subcategory, req.params.product];
+
+    cb(null, createFolderStructure(filePath));
+  },
+
+  filename: function (req, file, cb) {
+    if (file.mimetype === 'image/png') {
+      setImagesProperty(req, file);
+      cb(null, file.originalname);
+
+    } else if (file.mimetype === 'image/jpeg') {
+      setImagesProperty(req, file);
+      cb(null, file.originalname);
+
+    } else {
+      cb(new Error('Wrong file type'));
+    }
+  }
+});
+
+function createFolderStructure(path) {
+  return path.reduce((parentDir, childDir) => {
+    let curDir = parentDir + childDir + '/';
+
+    if (!fs.existsSync(curDir)) {
+      fs.mkdirSync(curDir);
+    }
+
+    return curDir;
+
+  }, '');
+}
+
+function setImagesProperty(req, file) {
+  if (file.fieldname === 'thumbnail') {
+    req.body.images = 'img/' + req.params.category + '/' + req.params.subcategory + '/'
+        + req.params.product + '/' + file.originalname;
+  } else {
+    req.body.images += ',img/' + req.params.category + '/' + req.params.subcategory
+        + req.params.product + '/' + file.originalname;
+  }
+}
+
+const upload = multer({ storage: storage });
+module.exports.cpUpload = upload.fields([{name: 'thumbnail', maxCount: 1}, {name: 'uploads[]', maxCount: 5}]);
 
 function addProduct(req, res, id) {
   var product = new Product({

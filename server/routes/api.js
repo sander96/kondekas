@@ -1,54 +1,5 @@
 const express = require('express');
-const multer  = require('multer');
-const fs = require('fs');
-const path = require('path');
 const router = express.Router();
-
-let storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    let filePath = ['public', 'images', req.params.category
-      , req.params.subcategory, req.params.product];
-
-    cb(null, createFolderStructure(filePath));
-  },
-
-  filename: function (req, file, cb) {
-    if (file.mimetype === 'image/png') {
-      setImagesProperty(req, file);
-      cb(null, file.originalname + '.png');
-
-    } else if (file.mimetype === 'image/jpeg') {
-      setImagesProperty(req, file);
-      cb(null, file.originalname + '.jpeg');
-
-    } else {
-      cb(new Error('Wrong file type'));
-    }
-  }
-});
-
-function createFolderStructure(path) {
-  return path.reduce((parentDir, childDir) => {
-    let curDir = parentDir + childDir + '/';
-
-    if (!fs.existsSync(curDir)) {
-      fs.mkdirSync(curDir);
-    }
-
-    return curDir;
-
-  }, '');
-}
-
-function setImagesProperty(req, file) {
-  if (file.fieldname === 'thumbnail') {
-    req.body.images = file.originalname;
-  } else {
-    req.body.images += ',' + file.originalname;
-  }
-}
-
-const upload = multer({ storage: storage });
 
 var authentication = require('../controllers/authentication');
 var passport = require('passport');
@@ -111,10 +62,9 @@ router.delete('/category/:category/:subcategory', authorization.isAuthorized(['a
 // Read list of products
 router.get('/product/:category/:subcategory', productHandler.getSubcategoryProducts);
 
-let cpUpload = upload.fields([{name: 'thumbnail', maxCount: 1}, {name: 'uploads[]', maxCount: 5}]);
 // Add a product
 router.post('/product/:category/:subcategory/:product', authorization.isAuthorized(['admin', 'worker'])
-    , cpUpload, productHandler.createProduct);
+    , productHandler.cpUpload, productHandler.createProduct);
 
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);
