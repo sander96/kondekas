@@ -6,10 +6,10 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 
-//import {ContentModule} from "./core/content/content.module";
 import { PurchaseModule } from './core/purchase/purchase.module';
 
 import { AuthGuard } from './core/guards/auth.guard';
+import { AuthService } from "./core/services/auth.service";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from "./navigation/navbar/navbar.component";
@@ -23,11 +23,11 @@ import { PurchaseComponent } from './core/purchase/purchase.component';
 import { NotFound } from './core/notFound/notFound.component';
 
 import { CategoriesService } from './core/services/categories.service';
-import { AuthService } from "./core/services/auth.service";
 
 // Google maps
 import { AgmCoreModule } from '@agm/core';
 import { ProductService } from './core/services/product.service';
+import { WorkerGuard } from './core/guards/worker.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,7 +42,7 @@ const appRoutes: Routes = [
   {path: 'content', loadChildren: './core/content/content.module#ContentModule'},
   {path: 'cart', component: PurchaseComponent},
   {path: 'payment', component: PurchaseComponent, canActivate: [AuthGuard]},
-  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuard]},
+  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [WorkerGuard]},
   {path: '**', component: NotFound}
 ];
 
@@ -61,7 +61,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [CategoriesService, AuthService, ProductService, AuthGuard],
+  providers: [CategoriesService, AuthService, ProductService, AuthGuard, WorkerGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

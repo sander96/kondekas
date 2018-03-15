@@ -25,11 +25,12 @@ export class LoginComponent {
 
   onLogIn(form: NgForm) {
     if (form.valid) {
+      
       this.authService.authenticate(this.email, this.password)
           .subscribe(
               response => {
                 if (response) {
-                  this.router.navigateByUrl(this.returnUrl);
+                  this.checkUserRole();
                 }
               },
               err => {
@@ -37,5 +38,15 @@ export class LoginComponent {
                 console.log(err);
               });
     }
+  }
+
+  checkUserRole() {
+    this.authService.checkUserStatus()
+      .subscribe(response =>  {
+          this.router.navigateByUrl(this.returnUrl);
+      },
+      err => {
+        
+      });
   }
 }

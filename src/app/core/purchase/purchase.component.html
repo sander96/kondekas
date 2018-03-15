@@ -47,7 +47,12 @@
   </div>
 
   <div class='row align-items-start justify-content-start'>
-    <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()'>{{getButtonText()}}</button>
+    <div *ngIf='inCart'>
+      <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()' [routerLink]="['/payment']">{{getButtonText()}}</button>
+    </div>
+    <div *ngIf='!inCart'>
+        <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()' [routerLink]="['/cart']">{{getButtonText()}}</button>
+    </div>
   </div>
 
 </div>

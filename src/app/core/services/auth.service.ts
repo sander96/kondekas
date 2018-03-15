@@ -3,19 +3,22 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {LoginModel} from "../models/login.model";
 import {catchError} from "rxjs/operators";
+import { Router } from '@angular/router';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class AuthService {
+export class AuthService  {
   private _isAuthenticated: boolean = false;
   private _isAdmin: boolean = false;
+  private _role: string = 'user';
 
-  constructor(private http: HttpClient) {
-    this.http.get<{loggedIn: boolean}>('/api/auth/logged-in')
+  constructor(private http: HttpClient, private router: Router) {
+    this.http.get<{loggedIn: boolean, role: string}>('/api/auth/logged-in')
         .subscribe(response => {
           if (response.loggedIn) {
             this._isAuthenticated = true;
+            this._role = response.role;
           }
         })
   }
@@ -34,6 +37,24 @@ export class AuthService {
         });
   }
 
+  checkUserStatus(): Observable<boolean> {
+    return this.http.get<{loggedIn: boolean, role: string}>('/api/auth/logged-in')
+      .map(response =>  {
+        if (response.loggedIn)  {
+          this._isAuthenticated = true;
+          this._role = response.role;
+          console.log("aaaa")
+          console.log(response.role);
+          return true;
+        }
+        else{
+          this._isAuthenticated = false;
+          this._role = 'user';
+          return false;
+        }
+      });
+  }
+
   logOut(): Observable<boolean> {
     return this.http.get<LoginModel>('/api/auth/logout')
         .pipe(catchError(this.handleError))
@@ -41,6 +62,9 @@ export class AuthService {
           if (response.status == 'success') {
             this._isAuthenticated = false;
             this._isAdmin = false;
+            if (this.router.url.startsWith('/admin') || this.router.url.startsWith('/payment')) {
+              this.router.navigate(['/']);
+            }
             return true;
           }
           return false;
@@ -84,8 +108,11 @@ export class AuthService {
     return this._isAuthenticated;
   }
 
-
   get isAdmin(): boolean {
     return this._isAdmin;
+  }
+
+  get getRole(): string {
+    return this._role;
   }
 }

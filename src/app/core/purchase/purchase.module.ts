@@ -7,9 +7,10 @@ import { PaymentComponent } from "./payment/payment.component";
 
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [BrowserModule],
+  imports: [BrowserModule, RouterModule],
   declarations: [PurchaseComponent, CartComponent, PaymentComponent],
   exports: [PurchaseComponent],
   providers: [CartService, AuthService]

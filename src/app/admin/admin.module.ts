@@ -6,12 +6,13 @@ import { AdminComponent } from "./admin.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { ProductsComponent } from "./products/products.component";
 import { UsersComponent } from "./users/users.component";
+import { AdminGuard } from "../core/guards/admin.guard";
 
 const adminRoutes: Routes = [
   {path: '', component: AdminComponent},
   {path: 'orders', component: OrdersComponent},
   {path: 'products', component: ProductsComponent},
-  {path: 'users', component: UsersComponent}
+  {path: 'users', component: UsersComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({
