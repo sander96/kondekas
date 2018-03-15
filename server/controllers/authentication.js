@@ -76,7 +76,8 @@ module.exports.loginSuccess = function (req, res) {
 module.exports.loggedIn = function (req, res) {
   if (req.user) {
     res.json({
-      loggedIn: true
+      loggedIn: true,
+      role: req.user.role
     });
   } else {
     res.json({
