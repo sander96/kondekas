@@ -20,6 +20,7 @@ import { RegisterComponent } from "./core/register/register.component";
 import { HomeComponent } from './core/home/home.component';
 import { SidebarComponent } from './navigation/sidebar/sidebar.component';
 import { PurchaseComponent } from './core/purchase/purchase.component';
+import { NotFound } from './core/notFound/notFound.component';
 
 import { CategoriesService } from './core/services/categories.service';
 import { AuthService } from "./core/services/auth.service";
@@ -41,12 +42,13 @@ const appRoutes: Routes = [
   {path: 'content', loadChildren: './core/content/content.module#ContentModule'},
   {path: 'cart', component: PurchaseComponent},
   {path: 'payment', component: PurchaseComponent, canActivate: [AuthGuard]},
-  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuard]}
+  {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuard]},
+  {path: '**', component: NotFound}
 ];
 
 @NgModule({
   declarations: [
-    AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent
+    AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent, NotFound
   ],
   imports: [
     PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes),
