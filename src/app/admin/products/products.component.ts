@@ -36,31 +36,34 @@ export class ProductsComponent implements OnInit{
   }
 
   newProduct: InternalProduct = new InternalProduct();
+  thumbnail: File;
+  additionalImages: Array<File> = [];
 
   addProduct(form: NgForm) {
-    console.log(JSON.stringify(this.newProduct));
     if (form.valid) {
       let productUploadBaseUrl = `api/product/${this.selectedCategory.path}/${this.selectedSubcategory.path}/`;
       let productUploadTopUrl =  `${this.newProduct.en_name.replace(/ /g, "-").toLowerCase()}`;
-      let body = new URLSearchParams();
+
+      const formData: any = new FormData();
+      const thumbnail: any = this.thumbnail;
+      const files: Array<File> = this.additionalImages;
+      console.log(files);
+
+      formData.append('thumbnail', thumbnail, thumbnail.name);
+
+      for(let i =0; i < files.length; i++){
+        formData.append("uploads[]", files[i], files[i]['name']);
+      }
+
+      formData.append('images', '1,2');
 
       for (let property in this.newProduct) {
         if (this.newProduct.hasOwnProperty(property)) {
-          if (property === 'images') {
-            body.set(property, JSON.stringify(this.newProduct[property]).replace(/[\[\]]/g, ''));
-          } else {
-            body.set(property, this.newProduct[property]);
-          }
+          formData.append(property, this.newProduct[property]);
         }
       }
 
-      let httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded'
-        })
-      };
-
-      this.http.post<any>(productUploadBaseUrl + productUploadTopUrl, body.toString(), httpOptions)
+      this.http.post<any>(productUploadBaseUrl + productUploadTopUrl, formData)
           .pipe(catchError(this.handleError))
           .subscribe((res) => {
             console.log(JSON.stringify(res));
@@ -69,6 +72,14 @@ export class ProductsComponent implements OnInit{
       this.newProduct = new InternalProduct();
       form.reset();
     }
+  }
+
+  onThumbnailChangeEvent(fileInput: any) {
+    this.thumbnail = <File>fileInput.target.files[0];
+  }
+
+  onAdditionalFileChangeEvent(fileInput: any) {
+    this.additionalImages = <Array<File>>fileInput.target.files;
   }
 
   newCategory: InternalCategory = new InternalCategory();
@@ -202,7 +213,6 @@ class InternalProduct {
   en_name: string;
   et_description: string;
   en_description: string;
-  images: string[] = [];
   price: number;
   quantity: number;
 }

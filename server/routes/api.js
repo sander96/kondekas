@@ -1,5 +1,15 @@
 const express = require('express');
+const multer  = require('multer');
 const router = express.Router();
+
+var storage = multer.diskStorage({
+  destination: '/tmp/my-uploads',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+const upload = multer({ dest: 'uploads/', storage: storage });
 
 var authentication = require('../controllers/authentication');
 var passport = require('passport');
@@ -62,9 +72,10 @@ router.delete('/category/:category/:subcategory', authorization.isAuthorized(['a
 // Read list of products
 router.get('/product/:category/:subcategory', productHandler.getSubcategoryProducts);
 
+let cpUpload = upload.fields([{name: 'thumbnail', maxCount: 1}, {name: 'uploads[]', maxCount: 5}]);
 // Add a product
-router.post('/product/:category/:subcategory/:product', authorization.isAuthorized(['admin', 'worker']),
-  productHandler.createProduct);
+router.post('/product/:category/:subcategory/:product', authorization.isAuthorized(['admin', 'worker'])
+    , cpUpload, productHandler.createProduct);
 
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);

@@ -6,78 +6,104 @@
   <h1>Add products</h1>
   <form #productForm="ngForm" novalidate (ngSubmit)="addProduct(productForm)">
     <div class="form-group">
+      <label for="category">Category</label>
       <div class="row">
-        <label for="category">Category</label>
-      </div>
-      <div class="row">
-        <select class="form-control col-9" id="category"
-                [(ngModel)]="selectedCategory"
-                name="category" required>
-          <option></option>
-          <option *ngFor="let category of categories | async" [ngValue]="category">
-            {{ category.name }}
-          </option>
-        </select>
-        <button class="btn btn-primary col-3" (click)="resetModal()" data-toggle="modal" data-target="#addCategoryModal">
-          Add category
-        </button>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="row">
-        <label for="subCategory">Subcategory</label>
-      </div>
-      <div class="row">
-        <select *ngIf="selectedCategory" class="form-control col-9" id="subCategory"
-                [(ngModel)]="selectedSubcategory"
-                name="subCategory" required>
-          <option *ngFor="let subCat of selectedCategory.subcategories" [ngValue]="subCat">
-            {{ subCat.name }}
-          </option>
-        </select>
-        <select *ngIf="!selectedCategory" class="form-control col-9">
-        </select>
-        <button class="btn btn-primary col-3" data-toggle="modal" data-target="#addSubCategoryModal">
-          Add Subcategory
-        </button>
+        <div class="col-xl-6 col-lg-5 my-1 my-lg-0">
+          <select class="form-control" id="category"
+                  [(ngModel)]="selectedCategory"
+                  name="category" required>
+            <option></option>
+            <option *ngFor="let category of categories | async" [ngValue]="category">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-xl-3 col-lg-3 my-1 my-lg-0">
+          <button class="btn btn-primary btn-block" (click)="resetModal()"
+                  data-toggle="modal" data-target="#addCategoryModal">
+            Add category
+          </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 my-1 my-lg-0">
+          <button class="btn btn-warning btn-block">
+            Delete Category
+          </button>
+        </div>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Estonian name</label>
-      <input class="form-control" [(ngModel)]="newProduct.et_name" name="et_name" required>
+      <label for="subCategory">Subcategory</label>
+      <div class="row">
+        <div class="col-xl-6 col-lg-5 my-1 my-lg-0">
+          <select *ngIf="selectedCategory" class="form-control" id="subCategory"
+                  [(ngModel)]="selectedSubcategory"
+                  name="subCategory" required>
+            <option *ngFor="let subCat of selectedCategory.subcategories" [ngValue]="subCat">
+              {{ subCat.name }}
+            </option>
+          </select>
+          <select *ngIf="!selectedCategory" class="form-control">
+          </select>
+        </div>
+        <div class="col-xl-3 col-lg-3 my-1 my-lg-0">
+          <button class="btn btn-primary btn-block" data-toggle="modal"
+                  data-target="#addSubCategoryModal">
+            Add Subcategory
+          </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 my-1 my-lg-0">
+          <button class="btn btn-warning btn-block">
+            Delete Subcategory
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
-      <label>English name</label>
-      <input class="form-control" [(ngModel)]="newProduct.en_name" name="en_name" required>
+      <label for="et_name">Estonian name</label>
+      <input class="form-control" id="et_name" [(ngModel)]="newProduct.et_name" name="et_name" required>
     </div>
 
     <div class="form-group">
-      <label>Estonian description</label>
+      <label for="en_name">English name</label>
+      <input class="form-control" id="en_name" [(ngModel)]="newProduct.en_name" name="en_name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="et_description">Estonian description</label>
       <textarea class="form-control" [(ngModel)]="newProduct.et_description"
-                name="et_description" required rows="3">
+                name="et_description" id="et_description" required rows="3">
       </textarea>
     </div>
 
     <div class="form-group">
-      <label>English description</label>
+      <label for="en_description">English description</label>
       <textarea class="form-control" [(ngModel)]="newProduct.en_description"
-                name="en_description" required rows="3">
+                name="en_description" id="en_description" required rows="3">
       </textarea>
     </div>
 
-    <!-- TODO image input -->
-
     <div class="form-group">
-      <label>Quantity</label>
-      <input class="form-control" [(ngModel)]="newProduct.quantity" required name="quantity">
+      <label for="thumbnail">Choose product thumbnail</label>
+      <input type="file" class="form-control-file my-1" id="thumbnail"
+             (change)="onThumbnailChangeEvent($event)" name="thumbnail" required>
     </div>
 
     <div class="form-group">
-      <label>Price</label>
-      <input class="form-control" [(ngModel)]="newProduct.price" required name="price">
+      <label for="uploads">Choose any number of additional files</label>
+      <input type="file" class="form-control-file my-1" id="uploads"
+             (change)="onAdditionalFileChangeEvent($event)" name="uploads" multiple>
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input class="form-control" id="quantity" [(ngModel)]="newProduct.quantity" required name="quantity">
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input class="form-control" id="price" [(ngModel)]="newProduct.price" required name="price">
     </div>
 
     <button class="btn btn-primary" type="submit">Add product</button>
@@ -138,12 +164,12 @@
       <div class="modal-body">
         <form #subcategoryForm="ngForm" novalidate>
           <div class="form-group">
-            <label for="estonian">Estonian name</label>
+            <label for="subcategoryEstonian">Estonian name</label>
             <input class="form-control" id="subcategoryEstonian" name="subcategoryEstonian"
                    [(ngModel)]="newSubCategory.et" required>
           </div>
           <div class="form-group">
-            <label for="english">English name</label>
+            <label for="subcategoryEnglish">English name</label>
             <input class="form-control" id="subcategoryEnglish" name="subcategoryEnglish"
                    [(ngModel)]="newSubCategory.en" required>
           </div>
