@@ -1,15 +1,54 @@
 const express = require('express');
 const multer  = require('multer');
+const fs = require('fs');
+const path = require('path');
 const router = express.Router();
 
-var storage = multer.diskStorage({
-  destination: '/tmp/my-uploads',
+let storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    let filePath = ['public', 'images', req.params.category
+      , req.params.subcategory, req.params.product];
+
+    cb(null, createFolderStructure(filePath));
+  },
+
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
+    if (file.mimetype === 'image/png') {
+      setImagesProperty(req, file, '.png');
+      cb(null, file.originalname + '.png');
+
+    } else if (file.mimetype === 'image/jpeg') {
+      setImagesProperty(req, file, '.jpeg');
+      cb(null, file.originalname + '.jpeg');
+
+    } else {
+      cb(new Error('Wrong file type'));
+    }
   }
 });
 
-const upload = multer({ dest: 'uploads/', storage: storage });
+function createFolderStructure(path) {
+  return path.reduce((parentDir, childDir) => {
+    let curDir = parentDir + childDir + '/';
+
+    if (!fs.existsSync(curDir)) {
+      fs.mkdirSync(curDir);
+    }
+
+    return curDir;
+
+  }, '');
+}
+
+function setImagesProperty(req, file, extension) {
+  if (file.fieldname === 'thumbnail') {
+    req.body.images = file.originalname + extension;
+  } else {
+    req.body.images += ',' + file.originalname + extension;
+  }
+}
+
+const upload = multer({ storage: storage });
 
 var authentication = require('../controllers/authentication');
 var passport = require('passport');

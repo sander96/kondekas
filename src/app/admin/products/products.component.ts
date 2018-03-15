@@ -55,8 +55,6 @@ export class ProductsComponent implements OnInit{
         formData.append("uploads[]", files[i], files[i]['name']);
       }
 
-      formData.append('images', '1,2');
-
       for (let property in this.newProduct) {
         if (this.newProduct.hasOwnProperty(property)) {
           formData.append(property, this.newProduct[property]);
