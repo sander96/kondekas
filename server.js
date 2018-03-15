@@ -50,6 +50,7 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/c
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 
 // Static files
+app.use('/img', express.static(__dirname + '/public/images'));
 app.use(express.static('public'))
 
 // Send all other requests to the Angular app
