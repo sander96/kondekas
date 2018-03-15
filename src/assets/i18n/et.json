@@ -29,5 +29,9 @@
     "pwdErr": "Paroolid on erinevad",
     "pwdRepeat": "Parool uuesti",
     "create": "Loo kasutaja"
+  },
+
+  "notFound": {
+    "message": "Lehte ei leitud"
   }
 }

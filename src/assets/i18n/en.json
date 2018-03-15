@@ -29,5 +29,9 @@
     "pwdErr": "Passwords do not match",
     "pwdRepeat": "Repeat password",
     "create": "Create account"
+  },
+
+  "notFound": {
+    "message": "Page not found"
   }
 }
