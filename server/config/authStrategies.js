@@ -4,6 +4,7 @@ var User = require('../models/user').User;
 var GoogleUser = require('../models/user').GoogleUser;
 var bcrypt = require('bcrypt');
 var GoogleStrategy = require('passport-google-oauth20');
+var email = require('../controllers/email');
 
 function checkPassword(password, hash, done, user) {
   bcrypt.compare(password, hash, function (err, same) {
@@ -75,6 +76,10 @@ passport.use(new GoogleStrategy({
         });
 
         user.save(function (err, user) {
+          if (!err && process.env.NODE_ENV === 'production') {
+            email.sendEmail(googleUser.email, googleUser.name);
+          }
+
           return cb(err, user);
         });
       });
