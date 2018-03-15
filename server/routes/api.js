@@ -14,11 +14,11 @@ let storage = multer.diskStorage({
 
   filename: function (req, file, cb) {
     if (file.mimetype === 'image/png') {
-      setImagesProperty(req, file, '.png');
+      setImagesProperty(req, file);
       cb(null, file.originalname + '.png');
 
     } else if (file.mimetype === 'image/jpeg') {
-      setImagesProperty(req, file, '.jpeg');
+      setImagesProperty(req, file);
       cb(null, file.originalname + '.jpeg');
 
     } else {
@@ -40,11 +40,11 @@ function createFolderStructure(path) {
   }, '');
 }
 
-function setImagesProperty(req, file, extension) {
+function setImagesProperty(req, file) {
   if (file.fieldname === 'thumbnail') {
-    req.body.images = file.originalname + extension;
+    req.body.images = file.originalname;
   } else {
-    req.body.images += ',' + file.originalname + extension;
+    req.body.images += ',' + file.originalname;
   }
 }
 
