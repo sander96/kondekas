@@ -4,6 +4,7 @@ var LocalUser = require('../models/user').LocalUser;
 var bcrypt = require('bcrypt');
 var passport = require('passport');
 var validator = require('validator');
+var utils = require('../utils');
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -40,10 +41,7 @@ function saveUser(user, req, res) {
 };
 
 module.exports.registerEmail = function (req, res) {
-  if (!req.body.name || !req.body.email || !req.body.password) {
-    res.status(400);
-    return res.send('some fields are missing')
-  }
+  utils.validateBody(req, res, req.body.email, req.body.password);
 
   if (!validator.isEmail(req.body.email)) {
     res.status(400);
@@ -53,8 +51,6 @@ module.exports.registerEmail = function (req, res) {
   req.body.email = validator.normalizeEmail(req.body.email, {
     'all_lowercase': true
   });
-
-  req.body.name = validator.escape(req.body.name);
 
   bcrypt.hash(req.body.password, 10, function (err, hashedPassword) {
     if (err) {

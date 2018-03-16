@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
-const multer  = require('multer');
+const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 var Product = require('../models/product').Product;
 var Category = require('../models/category').Category;
-
+var utils = require('../utils');
+var validator = require('validator');
 
 let storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    let filePath = ['public', 'images', req.params.category
-      , req.params.subcategory, req.params.product];
+  destination: function (req, file, cb) {
+    let filePath = ['public', 'images', req.params.category, req.params.subcategory, req.params.product];
 
     cb(null, createFolderStructure(filePath));
   },
@@ -44,18 +44,37 @@ function createFolderStructure(path) {
 
 function setImagesProperty(req, file) {
   if (file.fieldname === 'thumbnail') {
-    req.body.images = 'img/' + req.params.category + '/' + req.params.subcategory + '/'
-        + req.params.product + '/' + file.originalname;
+    req.body.images = 'img/' + req.params.category + '/' + req.params.subcategory + '/' +
+      req.params.product + '/' + file.originalname;
   } else {
-    req.body.images += ',img/' + req.params.category + '/' + req.params.subcategory
-        + req.params.product + '/' + file.originalname;
+    req.body.images += ',img/' + req.params.category + '/' + req.params.subcategory +
+      req.params.product + '/' + file.originalname;
   }
 }
 
-const upload = multer({ storage: storage });
-module.exports.cpUpload = upload.fields([{name: 'thumbnail', maxCount: 1}, {name: 'uploads[]', maxCount: 5}]);
+const upload = multer({
+  storage: storage
+});
+module.exports.cpUpload = upload.fields([{
+  name: 'thumbnail',
+  maxCount: 1
+}, {
+  name: 'uploads[]',
+  maxCount: 5
+}]);
 
 function addProduct(req, res, id) {
+  utils.validateBody(req, res, req.body.et_name, req.body.en_name,
+    req.body.et_description, req.body.en_description, req.body.images,
+    req.body.price, req.body.quantity);
+
+  if (!validator.isFloat(req.body.price) || !validator.isNumeric(req.body.quantity)) {
+    res.status(400);
+    return res.json({
+      'error': 'some fields are invalid'
+    });
+  }
+
   var product = new Product({
     subcategoryId: id,
     productId: req.params.product,
@@ -67,7 +86,8 @@ function addProduct(req, res, id) {
       et: req.body.et_description,
       en: req.body.en_description
     },
-    images: req.body.images.split(','),
+
+    images: req.body.images,
     price: req.body.price,
     quantity: req.body.quantity
   });

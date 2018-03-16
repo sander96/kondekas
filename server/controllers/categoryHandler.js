@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 var Category = require('../models/category').Category;
+var utils = require('../utils');
 
 module.exports.createCategory = function (req, res) {
+  utils.validateBody(req, res, req.body.et_name, req.body.en_name);
+
   var newCategory = new Category({
     parentCategory: {
       path: req.params.category,
@@ -26,10 +29,12 @@ module.exports.createCategory = function (req, res) {
 }
 
 module.exports.createSubcategory = function (req, res) {
+  utils.validateBody(req, res, req.body.et_name, req.body.en_name);
+
   Category.findOne({
     "parentCategory.path": req.params.category
   }, function (err, category) {
-    if (err) {
+    if (!category || err) {
       res.status(400);
       return res.json({
         "err": "parent category doesn't exist"
@@ -94,6 +99,8 @@ module.exports.getCategories = function (req, res) {
 }
 
 module.exports.updateCategory = function (req, res) {
+  utils.validateBody(req, res, req.body.path, req.body.et_name, req.body.en_name);
+
   Category.findOne({
     'parentCategory.path': req.params.category
   }, function (err, category) {
@@ -130,6 +137,8 @@ module.exports.updateCategory = function (req, res) {
 }
 
 module.exports.updateSubcategory = function (req, res) {
+  utils.validateBody(req, res, req.body.path, req.body.et_name, req.body.en_name);
+
   Category.findOne({
     'parentCategory.path': req.params.category
   }, function (err, category) {
