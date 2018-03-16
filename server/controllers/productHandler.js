@@ -85,7 +85,7 @@ function addProduct(req, res, id) {
 
   var product = new Product({
     subcategoryId: id,
-    productId: req.params.product,
+    productId: encodeURIComponent(req.params.product),
     name: {
       et: req.body.et_name,
       en: req.body.en_name
