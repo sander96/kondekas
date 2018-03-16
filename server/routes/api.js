@@ -66,6 +66,10 @@ router.get('/product/:category/:subcategory', productHandler.getSubcategoryProdu
 router.post('/product/:category/:subcategory/:product', authorization.isAuthorized(['admin', 'worker']),
   productHandler.cpUpload, productHandler.createProduct);
 
+// Delete a product
+router.delete('/product/:category/:subcategory/:productId', authorization.isAuthorized(['admin', 'worker']),
+    productHandler.deleteProduct);
+
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);
 

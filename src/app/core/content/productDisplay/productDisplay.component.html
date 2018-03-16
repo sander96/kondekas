@@ -22,6 +22,12 @@
                 <h5 class="card-title">{{product.name}}</h5>
                 <h3 class='card-text'>{{product.subcategoryId}}</h3>
                 <p class='card-text'>{{product.description}}</p>
+                <div class="row">
+                  <button *ngIf="authService.getRole === 'worker' || authService.getRole === 'admin'"
+                          class="ml-auto btn btn-danger" (click)="deleteProduct(product)">
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           

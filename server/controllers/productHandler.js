@@ -244,6 +244,7 @@ module.exports.getSubcategoryProducts = function (req, res) {
         $project: {
           name: '$name.et', //hardcoded estonian
           description: '$description.et',
+          subcategoryId: '$subcategoryId',
           _id: 0,
           images: 1,
           price: 1,
@@ -267,3 +268,16 @@ module.exports.getSubcategoryProducts = function (req, res) {
     });
   });
 }
+
+module.exports.deleteProduct = function(req, res) {
+  Product.remove({
+    subcategoryId: req.query.subcategoryId,
+    productId: req.params.productId
+  }, function (err) {
+    if (err) {
+      return res.json({ status: 'failure' });
+    } else {
+      return res.json({ status: 'success' });
+    }
+  });
+};
