@@ -33,5 +33,59 @@
 
   "notFound": {
     "message": "Lehte ei leitud"
+  },
+
+  "admin": {
+    "ordersTitle": "Tellimused",
+    "ordersLink": "Tellimused",
+    "ordersDescription": "Vaata kõiki tellimusi",
+    "productsTitle": "Tooted",
+    "productsLink": "Tooted",
+    "productsDescription": "Lisa tooteid andmebaasi",
+    "usersTitle": "Kasutajad",
+    "usersLink": "Kasutajad",
+    "usersDescription": "Muuda kasutajate õigusi",
+
+    "products": {
+      "title": "Tooted",
+      "formTitle": "Lisa tooteid",
+      "category": "Kategooria",
+      "addCategoryBtn": "Lisa kategooria",
+      "deleteCategoryBtn": "Kustuta katagooria",
+      "subcategoryLbl": "Alamkategooria",
+      "addSubcategoryBtn": "Lisa alamkategooria",
+      "deleteSubcategoryBtn": "Kustuta alamkategooria",
+      "etNameLbl": "Eestikeelne nimi",
+      "enNameLbl": "Ingliskeelne nimi",
+      "etDescriptionLbl": "Eestikeelne tootekirjeldus",
+      "enDescriptionLbl": "Ingliskeelne tootekirjeldus",
+      "thumbnailLbl": "Vali toote thumbnail",
+      "uploadsLbl": "Vali kuni 5 lisapilti",
+      "quantityLbl": "Kogus",
+      "priceLbl": "Hind",
+      "submitBtn": "Lisa toode",
+
+      "catModal": {
+        "title": "Lisa kategooria",
+        "etSubcatPlaceholder": "Eestikeelne alamkategooria nimi",
+        "enSubcatPlaceholder": "Ingliskeelne alamkategooria nimi",
+        "removeSubcat": "Kustuta",
+        "addSubcat": "Lisa alamkategooria",
+        "addBtn": "Lisa kategooria"
+      },
+
+      "subcatModal": {
+        "title": "Lisa alamkategooria",
+        "addBtn": "Lisa"
+      }
+    },
+
+    "users": {
+      "title": "Kasutajad"
+    },
+
+    "orders": {
+      "title": "Tellimused"
+    }
   }
 }

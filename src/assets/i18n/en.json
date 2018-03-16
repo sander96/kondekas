@@ -33,5 +33,60 @@
 
   "notFound": {
     "message": "Page not found"
+  },
+
+  "admin": {
+  	"ordersTitle": "Orders",
+  	"ordersLink": "Orders",
+  	"ordersDescription": "View all the orders",
+  	"productsTitle": "Products",
+  	"productsLink": "Products",
+  	"productsDescription": "Add products to database",
+  	"usersTitle": "Users",
+  	"usersLink": "Users",
+  	"usersDescription": "Change user statuses",
+  	
+
+    "products": {
+      "title": "Products",
+      "formTitle": "Add products",
+      "category": "Category",
+      "addCategoryBtn": "Add category",
+      "deleteCategoryBtn": "Delete category",
+      "subcategoryLbl": "Subcategory",
+      "addSubcategoryBtn": "Add Subcategory",
+      "deleteSubcategoryBtn": "Delete Subcategory",
+      "etNameLbl": "Estonian name",
+      "enNameLbl": "English name",
+      "etDescriptionLbl": "Estonian description",
+      "enDescriptionLbl": "English description",
+      "thumbnailLbl": "Choose product thumbnail",
+      "uploadsLbl": "Choose up to 5 additional images",
+      "quantityLbl": "Quantity",
+      "priceLbl": "Price",
+      "submitBtn": "Add product",
+
+      "catModal": {
+      	"title": "Add category",
+      	"etSubcatPlaceholder": "Estonian subcategory name",
+      	"enSubcatPlaceholder": "English subcategory name",
+      	"removeSubcat": "Delete",
+      	"addSubcat": "Add subcategory",
+      	"addBtn": "Add category"
+      },
+
+      "subcatModal": {
+      	"title": "Add subcategory",
+      	"addBtn": "Add subcategory"
+      }
+    },
+
+    "users": {
+    	"title": "Users"
+    },
+
+    "orders": {
+    	"title": "Orders"
+    }
   }
 }

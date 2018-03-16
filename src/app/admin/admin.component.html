@@ -2,29 +2,41 @@
   <div class="card-deck">
     <div class="card">
       <div class="card-header">
-        Orders
+        {{ 'admin.ordersTitle' | translate }}
       </div>
       <div class="card-body">
-        <a class="btn btn-primary" routerLink="/admin/orders">Orders</a>
-        <p class="card-text">View all the orders</p>
+        <a class="btn btn-primary" routerLink="/admin/orders">
+          {{ 'admin.ordersLink' | translate }}
+        </a>
+        <p class="card-text">
+          {{ 'admin.ordersDescription' | translate }}
+        </p>
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        Products
+        {{ 'admin.productsTitle' | translate }}
       </div>
       <div class="card-body">
-        <a class="btn btn-primary" routerLink="/admin/products">Products</a>
-        <p class="card-text">Add, delete and modify the products</p>
+        <a class="btn btn-primary" routerLink="/admin/products">
+          {{ 'admin.productsLink' | translate }}
+        </a>
+        <p class="card-text">
+          {{ 'admin.productsDescription' | translate }}
+        </p>
       </div>
     </div>
     <div *ngIf='isAdmin' class="card">
       <div class="card-header">
-        Users
+        {{ 'admin.usersTitle' | translate }}
       </div>
       <div class="card-body">
-        <a class="btn btn-primary" routerLink="/admin/users">Users</a>
-        <p class="card-text">View the users</p>
+        <a class="btn btn-primary" routerLink="/admin/users">
+          {{ 'admin.usersLink' | translate }}
+        </a>
+        <p class="card-text">
+          {{ 'admin.usersDescription' | translate }}
+        </p>
       </div>
     </div>
   </div>
