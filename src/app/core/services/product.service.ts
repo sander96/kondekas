@@ -11,6 +11,7 @@ export class ProductService {
 
   getProductsByPath(category: string, subCategory: string) {
     //Check for errors
-    return this.http.get<Product[]>(this.productUrl+category+'/'+subCategory);
+    return this.http.get<Product[]>(this.productUrl + encodeURIComponent(category)
+        +'/' + encodeURIComponent(subCategory));
   }
 }

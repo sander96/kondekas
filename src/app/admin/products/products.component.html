@@ -14,7 +14,7 @@
                   name="category" required>
             <option></option>
             <option *ngFor="let category of categories | async" [ngValue]="category">
-              {{ category.name }}
+              {{ parseName(category.name) }}
             </option>
           </select>
         </div>
@@ -40,7 +40,7 @@
                   [(ngModel)]="selectedSubcategory"
                   name="subCategory" required>
             <option *ngFor="let subCat of selectedCategory.subcategories" [ngValue]="subCat">
-              {{ subCat.name }}
+              {{ parseName(subCat.name) }}
             </option>
           </select>
           <select *ngIf="!selectedCategory" class="form-control">
@@ -62,12 +62,14 @@
 
     <div class="form-group">
       <label for="et_name">{{ 'admin.products.etNameLbl' | translate }}</label>
-      <input class="form-control" id="et_name" [(ngModel)]="newProduct.et_name" name="et_name" required>
+      <input class="form-control" id="et_name" [(ngModel)]="newProduct.et_name"
+             name="et_name" required pattern="^[a-zA-Z0-9üõöäšžÜÕÖÄŠŽ\\-_/ ]+$">
     </div>
 
     <div class="form-group">
       <label for="en_name">{{ 'admin.products.enNameLbl' | translate }}</label>
-      <input class="form-control" id="en_name" [(ngModel)]="newProduct.en_name" name="en_name" required>
+      <input class="form-control" id="en_name" [(ngModel)]="newProduct.en_name"
+             name="en_name" required pattern="^[a-zA-Z0-9\\-_/ ]+$">
     </div>
 
     <div class="form-group">
@@ -93,17 +95,19 @@
     <div class="form-group">
       <label for="uploads">{{ 'admin.products.uploadsLbl' | translate }}</label>
       <input type="file" class="form-control-file my-1" id="uploads"
-             (change)="onAdditionalFileChangeEvent($event)" name="uploads" multiple>
+             (change)="onAdditionalFileChangeEvent($event)" name="uploads" multiple max="5">
     </div>
 
     <div class="form-group">
       <label for="quantity">{{ 'admin.products.quantityLbl' | translate }}</label>
-      <input class="form-control" id="quantity" [(ngModel)]="newProduct.quantity" required name="quantity">
+      <input class="form-control" id="quantity" [(ngModel)]="newProduct.quantity"
+             required name="quantity" pattern="^[0-9]+$">
     </div>
 
     <div class="form-group">
       <label for="price">{{ 'admin.products.priceLbl' | translate }}</label>
-      <input class="form-control" id="price" [(ngModel)]="newProduct.price" required name="price">
+      <input class="form-control" id="price" [(ngModel)]="newProduct.price" required
+             name="price" pattern="^[0-9]+(\.[0-9]+)?$">
     </div>
 
     <button class="btn btn-primary" type="submit">{{ 'admin.products.submitBtn' | translate }}</button>

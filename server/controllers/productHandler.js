@@ -17,11 +17,11 @@ let storage = multer.diskStorage({
   filename: function (req, file, cb) {
     if (file.mimetype === 'image/png') {
       setImagesProperty(req, file);
-      cb(null, file.originalname);
+      cb(null, encodeURIComponent(file.originalname));
 
     } else if (file.mimetype === 'image/jpeg') {
       setImagesProperty(req, file);
-      cb(null, file.originalname);
+      cb(null, encodeURIComponent(file.originalname));
 
     } else {
       cb(new Error('Wrong file type'));
@@ -31,7 +31,7 @@ let storage = multer.diskStorage({
 
 function createFolderStructure(path) {
   return path.reduce((parentDir, childDir) => {
-    let curDir = parentDir + childDir + '/';
+    let curDir = parentDir + encodeURIComponent(childDir) + '/';
 
     if (!fs.existsSync(curDir)) {
       fs.mkdirSync(curDir);
@@ -43,13 +43,21 @@ function createFolderStructure(path) {
 }
 
 function setImagesProperty(req, file) {
-  if (file.fieldname === 'thumbnail') {
-    req.body.images = 'img/' + req.params.category + '/' + req.params.subcategory + '/' +
-      req.params.product + '/' + file.originalname;
+  if (file.fieldname === 'thumbnail' || !req.body.images) {
+    req.body.images = [];
+    req.body.images.push('img/' + generateImagePath(req, file));
   } else {
-    req.body.images += ',img/' + req.params.category + '/' + req.params.subcategory +
-      req.params.product + '/' + file.originalname;
+    req.body.images.push('img/' + generateImagePath(req, file));
   }
+}
+
+function generateImagePath(req, file) {
+  let category = encodeURIComponent(req.params.category);
+  let subcategory = encodeURIComponent(req.params.subcategory);
+  let product = encodeURIComponent(req.params.product);
+  let image = encodeURIComponent(file.originalname);
+
+  return category + '/' + subcategory + '/' + product + '/' + image;
 }
 
 const upload = multer({

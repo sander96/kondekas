@@ -41,8 +41,12 @@ export class ProductsComponent implements OnInit{
 
   addProduct(form: NgForm) {
     if (form.valid) {
-      let productUploadBaseUrl = `api/product/${this.selectedCategory.path}/${this.selectedSubcategory.path}/`;
-      let productUploadTopUrl =  `${this.newProduct.en_name.replace(/ /g, "-").toLowerCase()}`;
+      let categoryPath = encodeURIComponent(this.selectedCategory.path);
+      let subcategoryPath = encodeURIComponent(this.selectedSubcategory.path);
+      let productPath = encodeURIComponent(this.newProduct.en_name
+          .replace(/ /g, "-").toLowerCase());
+
+      let productUploadUrl = `api/product/${categoryPath}/${subcategoryPath}/${productPath}`;
 
       const formData: any = new FormData();
       const thumbnail: any = this.thumbnail;
@@ -61,7 +65,7 @@ export class ProductsComponent implements OnInit{
         }
       }
 
-      this.http.post<any>(productUploadBaseUrl + productUploadTopUrl, formData)
+      this.http.post<any>(productUploadUrl, formData)
           .pipe(catchError(this.handleError))
           .subscribe((res) => {
             console.log(JSON.stringify(res));
@@ -84,11 +88,12 @@ export class ProductsComponent implements OnInit{
 
   addCategory(form: NgForm) {
     if (form.valid) {
-      let categoryUrl = this.newCategory.en.replace(/ /g, "-").toLowerCase();
+      let categoryUrl = encodeURIComponent(this.newCategory.en
+          .replace(/ /g, "-").toLowerCase());
 
       let body = new URLSearchParams();
-      body.set('en_name', this.newCategory.en);
-      body.set('et_name', this.newCategory.et);
+      body.set('en_name', encodeURIComponent(this.newCategory.en));
+      body.set('et_name', encodeURIComponent(this.newCategory.et));
 
       let httpOptions = {
         headers: new HttpHeaders({
@@ -115,11 +120,12 @@ export class ProductsComponent implements OnInit{
 
   private uploadModalSubcategories(categoryUrl: string, form: NgForm) {
     this.newCategory.subcategories.forEach((subCat, index) => {
-      let subcategoryUrl = subCat.en.replace(/ /g, "-").toLowerCase();
+      let subcategoryUrl = encodeURIComponent(subCat.en.replace(/ /g, "-")
+          .toLowerCase());
 
       let body = new URLSearchParams();
-      body.set('en_name', subCat.en);
-      body.set('et_name', subCat.et);
+      body.set('en_name', encodeURIComponent(subCat.en));
+      body.set('et_name', encodeURIComponent(subCat.et));
 
       let httpOptions = {
         headers: new HttpHeaders({
@@ -158,12 +164,13 @@ export class ProductsComponent implements OnInit{
 
   addSubCategory(form: NgForm) {
     if (form.valid && this.selectedCategory) {
-      let uploadUrl = this.selectedCategory.path + "/" + this.newSubCategory.en
-          .replace(/ /g, "-").toLowerCase();
+      let uploadUrl = encodeURIComponent(this.selectedCategory.path) + "/";
+      uploadUrl += encodeURIComponent(this.newSubCategory.en
+          .replace(/ /g, "-").toLowerCase());
 
       let body = new URLSearchParams();
-      body.set('en_name', this.newSubCategory.en);
-      body.set('et_name', this.newSubCategory.et);
+      body.set('en_name', encodeURIComponent(this.newSubCategory.en));
+      body.set('et_name', encodeURIComponent(this.newSubCategory.et));
 
       let httpOptions = {
         headers: new HttpHeaders({
@@ -181,6 +188,10 @@ export class ProductsComponent implements OnInit{
             form.reset();
           });
     }
+  }
+
+  parseName(urlEncodedName: string): string {
+    return decodeURIComponent(urlEncodedName);
   }
 
   private handleError(error: HttpErrorResponse) {
