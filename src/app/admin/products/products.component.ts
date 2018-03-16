@@ -6,6 +6,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { NgForm } from "@angular/forms";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {catchError} from "rxjs/operators";
+import {Product} from "../../core/models/product.model";
 
 declare var $: any;
 
@@ -35,9 +36,16 @@ export class ProductsComponent implements OnInit{
     return this.http.get<Category[]>('api/category', httpOptions);
   }
 
+  dismissSuccessDialog() {
+    this.uploadSuccess = false;
+    $('#successModal').modal('hide');
+  }
+
   newProduct: InternalProduct = new InternalProduct();
   thumbnail: File;
   additionalImages: Array<File> = [];
+  productAdditionResponse: Product;
+  uploadSuccess:boolean = false;
 
   addProduct(form: NgForm) {
     if (form.valid) {
@@ -50,7 +58,6 @@ export class ProductsComponent implements OnInit{
       const formData: any = new FormData();
       const thumbnail: any = this.thumbnail;
       const files: Array<File> = this.additionalImages;
-      console.log(files);
 
       formData.append('thumbnail', thumbnail, thumbnail.name);
 
@@ -68,6 +75,9 @@ export class ProductsComponent implements OnInit{
           .pipe(catchError(this.handleError))
           .subscribe((res) => {
             console.log(JSON.stringify(res));
+            this.productAdditionResponse = res;
+            this.uploadSuccess = true;
+            $("#successModal").modal('show');
           });
 
       this.newProduct = new InternalProduct();
@@ -201,9 +211,24 @@ export class ProductsComponent implements OnInit{
           `Backend returned code ${error.status}, ` +
           `body was: ${error.error}`);
     }
+    $('.modal').modal('hide');
     // return an ErrorObservable with a user-facing error message
     return new ErrorObservable(
         'Something bad happened; please try again later.');
+  }
+
+  getEncodedImagePath(url: string): string {
+    let urlParts = url.split(/\//);
+    let result = '';
+    urlParts.forEach((part, index) => {
+      result += encodeURIComponent(part);
+
+      if (index !== urlParts.length - 1) {
+        result += '/'
+      }
+    });
+
+    return result;
   }
 }
 
