@@ -43,8 +43,7 @@ export class ProductsComponent implements OnInit{
     if (form.valid) {
       let categoryPath = encodeURIComponent(this.selectedCategory.path);
       let subcategoryPath = encodeURIComponent(this.selectedSubcategory.path);
-      let productPath = encodeURIComponent(this.newProduct.en_name
-          .replace(/ /g, "-").toLowerCase());
+      let productPath = encodeURIComponent(this.newProduct.en_name);
 
       let productUploadUrl = `api/product/${categoryPath}/${subcategoryPath}/${productPath}`;
 
@@ -88,12 +87,11 @@ export class ProductsComponent implements OnInit{
 
   addCategory(form: NgForm) {
     if (form.valid) {
-      let categoryUrl = encodeURIComponent(this.newCategory.en
-          .replace(/ /g, "-").toLowerCase());
+      let categoryUrl = encodeURIComponent(this.newCategory.en);
 
       let body = new URLSearchParams();
-      body.set('en_name', encodeURIComponent(this.newCategory.en));
-      body.set('et_name', encodeURIComponent(this.newCategory.et));
+      body.set('en_name', this.newCategory.en);
+      body.set('et_name', this.newCategory.et);
 
       let httpOptions = {
         headers: new HttpHeaders({
@@ -120,12 +118,11 @@ export class ProductsComponent implements OnInit{
 
   private uploadModalSubcategories(categoryUrl: string, form: NgForm) {
     this.newCategory.subcategories.forEach((subCat, index) => {
-      let subcategoryUrl = encodeURIComponent(subCat.en.replace(/ /g, "-")
-          .toLowerCase());
+      let subcategoryUrl = encodeURIComponent(subCat.en);
 
       let body = new URLSearchParams();
-      body.set('en_name', encodeURIComponent(subCat.en));
-      body.set('et_name', encodeURIComponent(subCat.et));
+      body.set('en_name', subCat.en);
+      body.set('et_name', subCat.et);
 
       let httpOptions = {
         headers: new HttpHeaders({
@@ -165,12 +162,11 @@ export class ProductsComponent implements OnInit{
   addSubCategory(form: NgForm) {
     if (form.valid && this.selectedCategory) {
       let uploadUrl = encodeURIComponent(this.selectedCategory.path) + "/";
-      uploadUrl += encodeURIComponent(this.newSubCategory.en
-          .replace(/ /g, "-").toLowerCase());
+      uploadUrl += encodeURIComponent(this.newSubCategory.en);
 
       let body = new URLSearchParams();
-      body.set('en_name', encodeURIComponent(this.newSubCategory.en));
-      body.set('et_name', encodeURIComponent(this.newSubCategory.et));
+      body.set('en_name', this.newSubCategory.en);
+      body.set('et_name', this.newSubCategory.et);
 
       let httpOptions = {
         headers: new HttpHeaders({

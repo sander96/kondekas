@@ -63,13 +63,13 @@
     <div class="form-group">
       <label for="et_name">{{ 'admin.products.etNameLbl' | translate }}</label>
       <input class="form-control" id="et_name" [(ngModel)]="newProduct.et_name"
-             name="et_name" required pattern="^[a-zA-Z0-9üõöäšžÜÕÖÄŠŽ\\-_/ ]+$">
+             name="et_name" required>
     </div>
 
     <div class="form-group">
       <label for="en_name">{{ 'admin.products.enNameLbl' | translate }}</label>
       <input class="form-control" id="en_name" [(ngModel)]="newProduct.en_name"
-             name="en_name" required pattern="^[a-zA-Z0-9\\-_/ ]+$">
+             name="en_name" required>
     </div>
 
     <div class="form-group">
