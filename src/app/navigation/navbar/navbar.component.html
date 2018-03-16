@@ -15,7 +15,7 @@
       <li class="nav-item">
           <a class="nav-link" routerLink="/about">{{ 'navbar.about' | translate }}</a>
       </li>
-      <li *ngIf="authService.isAdmin" class="nav-item">
+      <li *ngIf="authService.getRole === 'admin' || authService.getRole === 'worker'" class="nav-item">
         <a class="nav-link" routerLink="/admin">{{ 'navbar.admin' | translate }}</a>
       </li>
     </ul>

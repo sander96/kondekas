@@ -17,6 +17,7 @@ const adminRoutes: Routes = [
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule.forChild(adminRoutes)],
-  declarations: [AdminComponent, OrdersComponent, ProductsComponent, UsersComponent]
+  declarations: [AdminComponent, OrdersComponent, ProductsComponent, UsersComponent],
+  providers: [AdminGuard]
 })
 export class AdminModule {}

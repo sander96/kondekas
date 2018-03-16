@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthService } from "../../core/services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'navbar',
@@ -13,7 +14,8 @@ export class NavbarComponent {
   showSidebar: boolean = true;
 
   constructor(public authService: AuthService,
-              public translate: TranslateService) {
+              public translate: TranslateService,
+              private router: Router) {
     translate.addLangs(["en", "et"]);
     translate.setDefaultLang('en');
     translate.use('en');
@@ -26,6 +28,7 @@ export class NavbarComponent {
     this.authService.logOut().subscribe(
         response => {
           if (response) {
+            this.router.navigateByUrl('/');
             console.log("Logged out");
           }
         },

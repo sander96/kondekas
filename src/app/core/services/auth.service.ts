@@ -62,6 +62,7 @@ export class AuthService  {
           if (response.status == 'success') {
             this._isAuthenticated = false;
             this._isAdmin = false;
+            this._role = 'user';
             if (this.router.url.startsWith('/admin') || this.router.url.startsWith('/payment')) {
               this.router.navigate(['/']);
             }
