@@ -5,6 +5,7 @@ var GoogleUser = require('../models/user').GoogleUser;
 var bcrypt = require('bcrypt');
 var GoogleStrategy = require('passport-google-oauth20');
 var email = require('../controllers/email');
+var validator = require('validator');
 
 function checkPassword(password, hash, done, user) {
   bcrypt.compare(password, hash, function (err, same) {
@@ -24,6 +25,10 @@ passport.use('local', new LocalStrategy({
     usernameField: 'email'
   },
   function (email, password, done) {
+    email = validator.normalizeEmail(email, {
+      'all_lowercase': true
+    });
+
     User.findOne({
       'accounts.userType': 'local',
       'accounts.email': email

@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var User = require('../models/user').User;
 var LocalUser = require('../models/user').LocalUser;
-var GoogleUser = require('../models/user').GoogleUser;
 var bcrypt = require('bcrypt');
 var passport = require('passport');
+var validator = require('validator');
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -42,8 +42,19 @@ function saveUser(user, req, res) {
 module.exports.registerEmail = function (req, res) {
   if (!req.body.name || !req.body.email || !req.body.password) {
     res.status(400);
-    return res.send("some fields are invalid")
+    return res.send('some fields are missing')
   }
+
+  if (!validator.isEmail(req.body.email)) {
+    res.status(400);
+    return res.send('email is not correct');
+  }
+
+  req.body.email = validator.normalizeEmail(req.body.email, {
+    'all_lowercase': true
+  });
+
+  req.body.name = validator.escape(req.body.name);
 
   bcrypt.hash(req.body.password, 10, function (err, hashedPassword) {
     if (err) {
