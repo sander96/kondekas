@@ -25,4 +25,18 @@ export class ProductDisplayComponent implements OnInit {
     this.viewStyle=false;
   }
 
+  getEncodedImagePath(url: string): string {
+    let urlParts = url.split(/\//);
+    let result = '';
+    urlParts.forEach((part, index) => {
+      result += encodeURIComponent(part);
+
+      if (index !== urlParts.length - 1) {
+        result += '/'
+      }
+    });
+
+    return result;
+  }
+
 }
