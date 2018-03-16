@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { PurchaseComponent } from "./purchase.component";
 import { CartComponent } from "./cart/cart.component";
@@ -10,9 +11,9 @@ import { AuthService } from '../services/auth.service';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [BrowserModule, RouterModule],
+  imports: [BrowserModule, RouterModule, TranslateModule],
   declarations: [PurchaseComponent, CartComponent, PaymentComponent],
-  exports: [PurchaseComponent],
+  exports: [PurchaseComponent, TranslateModule],
   providers: [CartService, AuthService]
 })
 export class PurchaseModule { }

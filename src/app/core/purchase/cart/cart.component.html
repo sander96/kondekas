@@ -1,5 +1,5 @@
 <div class='row'>
-  <h4>Items in cart: {{cart.size}}</h4>
+  <h4>{{ 'cart.items' | translate }}{{cart.size}}</h4>
 </div>
   
 <div class='row'>
@@ -9,14 +9,14 @@
         <div class='card-body'>
           <h5 class='card-title'>{{product.title}}</h5>
           <p class='card-text'>Description will be shown here!</p>
-          <button class='btn btn-primary' (click)='removeFromCart(product)'>Remove</button>
+          <button class='btn btn-primary' (click)='removeFromCart(product)'>{{ 'cart.removeItem' | translate }}</button>
           <div class='input-group mb-3'>
-            <div class="input-group mb-3">
+            
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="addon">Quantity</span>
+                  <span class="input-group-text" id="addon">{{ 'cart.changeQuantity' | translate }}</span>
                 </div>
                 <input type="number" #input (change)='changeQuantity(product, input.value)' class="form-control" value='{{cart.get(product)}}' aria-describedby="addon" pattern='^[0-9]+$'>
-              </div>
+              
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { CartComponent } from './cart/cart.component'
 import { CartService } from '../services/cart.service';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import { AuthService } from '../services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-purchase',
@@ -16,7 +17,7 @@ export class PurchaseComponent implements OnInit {
   totalCost: number;
   inCart: boolean;
 
-  constructor(private _router: Router, private cartService: CartService, public authService: AuthService) {
+  constructor(private _router: Router, private cartService: CartService, public authService: AuthService, public translate: TranslateService) {
     this.router = _router
   }
 
@@ -27,11 +28,6 @@ export class PurchaseComponent implements OnInit {
     else if (this.getRoute() === "/payment")  this.inCart=false;
 
     this.cartService.currentCart.subscribe(cart => this.cart = cart);
-  }
-
-  getButtonText(): string {
-    if (this.inCart)  return 'Proceed to payment';
-    else return 'Back to cart';
   }
 
   getKeys(): Product[]  {

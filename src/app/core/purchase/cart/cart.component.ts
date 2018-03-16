@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { Observable } from "rxjs/Observable";
 import { CartService } from '../../services/cart.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +12,7 @@ import { CartService } from '../../services/cart.service';
 export class CartComponent implements OnInit {
   cart = new Map<Product, number>();
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, public translate: TranslateService) { }
 
   ngOnInit() {
     this.cartService.currentCart.subscribe(cart => this.cart = cart);

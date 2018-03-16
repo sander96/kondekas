@@ -14,11 +14,10 @@
 
     <div class="form-group">
       <label>Email:</label>
-      <input [(ngModel)]='registerData.email' #emailInput='ngModel' name='email' type="text" class="form-control" required
-        pattern="^.*@.*$">
+      <input [(ngModel)]='registerData.email' #emailInput='ngModel' email='true' name='email' type="email" class="form-control" required>
       <div *ngIf='emailInput.touched && !emailInput.valid' class='alert alert-danger'>
         <div *ngIf='emailInput.errors.required'>{{ 'register.required' | translate }}!</div>
-        <div *ngIf='emailInput.errors.pattern'>{{ 'register.incorrect' | translate }}</div>
+        <div *ngIf='emailInput.errors?.email'>{{ 'register.incorrect' | translate }}</div>
       </div>
     </div>
 

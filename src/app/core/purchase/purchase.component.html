@@ -1,28 +1,28 @@
 <div class='jumbotron'>
   <div *ngIf='inCart'>
-    <h1 class="display-4">Shopping Cart</h1>
+    <h1 class="display-4">{{ 'cart.title' | translate }}</h1>
   </div>
   <div *ngIf='!inCart'>
-    <h1 class="display-4">Payment</h1>
+    <h1 class="display-4">{{ 'payment.title' | translate }}</h1>
   </div>
 </div>
 
 <div class='container'>
   <div class='row'>
-    <div class='col-md-6'>
+    <div class='col-md-8'>
       <div *ngIf='inCart'><app-cart></app-cart></div>
     <div *ngIf='!inCart'><app-payment></app-payment></div>
     </div>
 
-    <div class='col-md-6'>
-      <h5>Payment details</h5>
+    <div class='col-md-4'>
+      <h5>{{ 'payment.tableTitle' | translate }}</h5>
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
+            <th scope="col">{{ 'payment.nameCol' | translate }}</th>
+            <th scope="col">{{ 'payment.quantityCol' | translate }}</th>
+            <th scope="col">{{ 'payment.priceCol' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
           </ng-container>
           <tr>
             <th scope="row"></th>
-            <td colspan='2'><b>TOTAL: </b></td>
+            <td colspan='2'><b>{{ 'payment.total' | translate }} </b></td>
             <td><b>{{totalCost}}</b></td>
           </tr>
         </ng-container>
@@ -48,10 +48,10 @@
 
   <div class='row align-items-start justify-content-start'>
     <div *ngIf='inCart'>
-      <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()' [routerLink]="['/payment']">{{getButtonText()}}</button>
+      <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()' [routerLink]="['/payment']">{{ 'cart.paymentButton' | translate }}</button>
     </div>
     <div *ngIf='!inCart'>
-        <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()' [routerLink]="['/cart']">{{getButtonText()}}</button>
+        <button [disabled]='!authService.isAuthenticated || !(cart.size>0)' class='btn btn-primary' type='button' (click)='changeContent()' [routerLink]="['/cart']">{{ 'payment.backButton' | translate }}</button>
     </div>
   </div>
 

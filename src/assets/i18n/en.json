@@ -88,5 +88,24 @@
     "orders": {
     	"title": "Orders"
     }
+  },
+  
+  "cart": {
+	"title": "Shoppingcart",
+	"paymentButton": "Proceed to payment",
+	"items": "Items in cart: ",
+	"removeItem": "Remove",
+	"changeQuantity": "Quantity"
+  },
+  
+  "payment": {
+	"title": "Payment",
+	"subTitle": "Choose payment option",
+	"tableTitle": "Cart summary",
+	"nameCol": "Product",
+	"quantityCol": "Quantity",
+	"priceCol": "Price",
+	"total": "Total: ",
+	"backButton": "Back to cart"
   }
 }
