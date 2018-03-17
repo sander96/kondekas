@@ -5,7 +5,8 @@
     "logout": "Log out",
     "register": "Register",
     "admin": "Manage",
-    "cart": "Shopping Cart"
+    "cart": "Shopping Cart",
+    "language": "Language"
   },
 
   "about": {
