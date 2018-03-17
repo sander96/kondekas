@@ -11,9 +11,15 @@
       <label for="password">{{ 'login.password' | translate }}:</label>
       <input class="form-control" type="password" [(ngModel)]="password" id="password" required name="password">
     </div>
-    <button type="submit" class="btn btn-primary">
-      {{ 'login.loginBtn' | translate }}
-    </button>
+
+    <div class="form-row">
+      <button type="submit" class="col-12 col-md-3 m-1 btn btn-primary">
+        {{ 'login.loginBtn' | translate }}
+      </button>
+      <a class="col-12 col-md-3 btn btn-outline-secondary m-1" routerLink="/register">
+        {{ 'navbar.register' | translate }}
+      </a>
+    </div>
   </form>
 </div>
 <div class="container" id="register-container">

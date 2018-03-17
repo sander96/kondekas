@@ -15,14 +15,7 @@ export class NavbarComponent {
 
   constructor(public authService: AuthService,
               public translate: TranslateService,
-              private router: Router) {
-    translate.addLangs(["en", "et"]);
-    translate.setDefaultLang('en');
-    translate.use('en');
-
-    let browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|et/) ? browserLang : 'en');
-  }
+              private router: Router) { }
 
   onLogOut() {
     this.authService.logOut().subscribe(

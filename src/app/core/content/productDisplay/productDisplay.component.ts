@@ -34,15 +34,16 @@ export class ProductDisplayComponent implements OnInit {
 
   deleteProduct(product: Product) {
     this.route.paramMap.subscribe(paramMap => {
-      let category =  paramMap.get('category');
-      let subcategory = paramMap.get('subcategory');
+      let category =  encodeURIComponent(paramMap.get('category'));
+      let subcategory = encodeURIComponent(paramMap.get('subcategory'));
+      let productId = encodeURIComponent(product.productId);
 
       let body = {
         subcategoryId: product.subcategoryId
       };
 
       this.http.delete('api/product/' + category + '/'
-          + subcategory + '/' + product.productId, { params: body, responseType: "json"}).subscribe();
+          + subcategory + '/' + productId, { params: body, responseType: "json"}).subscribe();
 
       this.productService.getProductsByPath(category, subcategory)
           .subscribe(p => this.productsToDisplay = p);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateService } from "@ngx-translate/core";
+import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,15 @@ export class AppComponent {
   showSidebar: boolean = true;
 
   constructor(public translate: TranslateService) {
+    translate.addLangs(["en", "et"]);
     translate.setDefaultLang('en');
-    translate.use('en');
+
+    let lang = localStorage.getItem('language');
+    translate.use(localStorage.getItem('language') ? lang : 'en');
+
+    translate.onLangChange.subscribe((params: LangChangeEvent) => {
+      localStorage.setItem('language', params.lang);
+    });
   }
 
   recieveSidebarChange(event: boolean) {
