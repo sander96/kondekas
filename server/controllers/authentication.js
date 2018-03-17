@@ -5,6 +5,7 @@ var bcrypt = require('bcrypt');
 var passport = require('passport');
 var validator = require('validator');
 var utils = require('../utils');
+var email = require('../controllers/email');
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -32,6 +33,9 @@ function saveUser(user, req, res) {
           res.status(500);
           return res.send("error");
         } else {
+          if (process.env.NODE_ENV === 'production' && validator.contains(user.email, '@gmail.com')) {
+            email.sendEmail(user.email, user.name);
+          }
           res.status(200);
           return res.send("registration worked");
         }

@@ -43,4 +43,4 @@ testem.log
 Thumbs.db
 
 # for convenience
-/public
+/public/images
