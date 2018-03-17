@@ -178,6 +178,11 @@ module.exports.getProduct = function (req, res) {
       });
     }
 
+    var language = 'en';
+    if (req.get('Accept-Language') === 'et') {
+      language = 'et';
+    }
+
     Product.aggregate([{
         $match: {
           productId: req.params.product,
@@ -186,8 +191,8 @@ module.exports.getProduct = function (req, res) {
       },
       {
         $project: {
-          name: '$name.et', //hardcoded estonian
-          description: '$description.et',
+          name: '$name.' + language,
+          description: '$description.' + language,
           _id: 0,
           images: 1,
           price: 1,
@@ -235,6 +240,11 @@ module.exports.getSubcategoryProducts = function (req, res) {
       });
     }
 
+    var language = 'en';
+    if (req.get('Accept-Language') === 'et') {
+      language = 'et';
+    }
+
     Product.aggregate([{
         $match: {
           subcategoryId: subcategory
@@ -242,8 +252,8 @@ module.exports.getSubcategoryProducts = function (req, res) {
       },
       {
         $project: {
-          name: '$name.et', //hardcoded estonian
-          description: '$description.et',
+          name: '$name.' + language,
+          description: '$description.' + language,
           subcategoryId: '$subcategoryId',
           _id: 0,
           images: 1,
@@ -269,12 +279,12 @@ module.exports.getSubcategoryProducts = function (req, res) {
   });
 }
 
-module.exports.deleteProduct = function(req, res) {
+module.exports.deleteProduct = function (req, res) {
   let noDir = false;
 
   try {
     rmDirectorySync(path.join('public', 'images', req.params.category,
-        req.params.subcategory, req.params.productId));
+      req.params.subcategory, req.params.productId));
 
   } catch (e) {
     if (e.toString().includes('ENOENT: no such file or directory')) {
@@ -293,10 +303,16 @@ module.exports.deleteProduct = function(req, res) {
     productId: req.params.productId
   }, function (err) {
     if (err) {
-      return res.json({ status: 'failure', msg: err.toString() });
+      return res.json({
+        status: 'failure',
+        msg: err.toString()
+      });
     } else {
       let responseMsg = noDir ? 'This product had no pictures' : 'All pictures were deleted';
-      return res.json({ status: 'success', msg: responseMsg });
+      return res.json({
+        status: 'success',
+        msg: responseMsg
+      });
     }
   });
 };
@@ -310,7 +326,7 @@ function rmDirectorySync(pathToElement) {
   } else if (stats.isDirectory()) {
     let files = fs.readdirSync(pathToElement);
 
-    files.forEach(function(file) {
+    files.forEach(function (file) {
       rmDirectorySync(path.join(pathToElement, file));
     });
 

@@ -75,17 +75,22 @@ module.exports.getCategories = function (req, res) {
     } else {
       var simplifiedCategories = [];
 
+      var language = 'en';
+      if (req.get('Accept-Language') === 'et') {
+        language = 'et';
+      }
+
       for (var i = 0; i < categories.length; ++i) {
         var simplifiedCategory = {};
         simplifiedCategory.path = categories[i].parentCategory.path;
-        simplifiedCategory.name = categories[i].parentCategory.name.et;
+        simplifiedCategory.name = categories[i].parentCategory.name[language];
 
         simplifiedCategory.subcategories = [];
 
         for (var j = 0; j < categories[i].subcategories.length; ++j) {
           simplifiedCategory.subcategories.push({
             path: categories[i].subcategories[j].path,
-            name: categories[i].subcategories[j].name.et, // hardcoded to return estonian
+            name: categories[i].subcategories[j].name[language],
           });
         }
 
