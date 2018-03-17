@@ -270,14 +270,53 @@ module.exports.getSubcategoryProducts = function (req, res) {
 }
 
 module.exports.deleteProduct = function(req, res) {
+  let noDir = false;
+
+  try {
+    rmDirectorySync(path.join('public', 'images', req.params.category,
+        req.params.subcategory, req.params.productId));
+
+  } catch (e) {
+    if (e.toString().includes('ENOENT: no such file or directory')) {
+      noDir = true;
+    } else {
+      return res.json({
+        status: 'failure',
+        error: e.toString(),
+        msg: 'Manual product removal is required.'
+      });
+    }
+  }
+
   Product.remove({
     subcategoryId: req.query.subcategoryId,
     productId: req.params.productId
   }, function (err) {
     if (err) {
-      return res.json({ status: 'failure' });
+      return res.json({ status: 'failure', msg: err.toString() });
     } else {
-      return res.json({ status: 'success' });
+      let responseMsg = noDir ? 'This product had no pictures' : 'All pictures were deleted';
+      return res.json({ status: 'success', msg: responseMsg });
     }
   });
 };
+
+function rmDirectorySync(pathToElement) {
+  let stats = fs.statSync(pathToElement);
+
+  if (stats.isFile()) {
+    fs.unlinkSync(pathToElement);
+
+  } else if (stats.isDirectory()) {
+    let files = fs.readdirSync(pathToElement);
+
+    files.forEach(function(file) {
+      rmDirectorySync(path.join(pathToElement, file));
+    });
+
+    fs.rmdirSync(pathToElement);
+
+  } else {
+    throw pathToElement + ' is neither a directory nor a file';
+  }
+}
