@@ -6,7 +6,8 @@ import { Product } from '../models/product.model'
 @Component({
   selector: 'app-home',
   moduleId: module.id,
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['home.component.css']
 })
 export class HomeComponent implements OnInit {
   readonly ROOT_URL = 'https://jsonplaceholder.typicode.com';

@@ -6,7 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
   selector: 'app-about',
   moduleId: module.id,
   templateUrl: './about.component.html',
-  styles: ['agm-map {height: 300px;}']
+  styleUrls: ['about.component.css']
 })
 export class AboutComponent {
   lat:number = 58.378285;
