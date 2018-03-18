@@ -46,7 +46,6 @@
   	"usersTitle": "Users",
   	"usersLink": "Users",
   	"usersDescription": "Change user statuses",
-  	
 
     "products": {
       "title": "Products",
@@ -112,9 +111,8 @@
 
   "content": {
     "productAmount": "Products found",
-
     "productDisplay": {
-      "deleteProduct" : "Delete"
+      "deleteProduct": "Delete"
     }
   }
 }

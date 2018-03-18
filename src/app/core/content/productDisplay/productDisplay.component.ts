@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Product } from "../../models/product.model";
-import { Category } from "../../models/category.model";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {ProductService} from "../../services/product.service";
-import {TranslateService} from "@ngx-translate/core";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'productDisplay',

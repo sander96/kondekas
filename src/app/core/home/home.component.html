@@ -4,7 +4,7 @@
             <div *ngFor='let product of productsTop | async; let i=index'>
                 <div class='col' *ngIf='i<numberOfProducts'>
                     <a href="#">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card">
                             <img class="card-img-top" [src]="product.url" [alt]="product.id" >
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
@@ -21,7 +21,7 @@
             <div *ngFor='let product of productsPopular | async; let i=index'>
                 <div class='col' *ngIf='i<numberOfProducts'>
                     <a href="#">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card">
                             <img class="card-img-top" [src]="product.url" [alt]="product.id" >
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
@@ -38,7 +38,7 @@
             <div *ngFor='let product of productsFeatured | async; let i=index'>
                     <div class='col' *ngIf='i<numberOfProducts'>
                         <a href="#">
-                            <div class="card" style="width: 18rem;">
+                            <div class="card">
                                 <img class="card-img-top" [src]="product.url" [alt]="product.id" >
                                 <div class="card-body">
                                     <h5 class="card-title">{{ product.title }}</h5>
@@ -55,7 +55,7 @@
             <div *ngFor='let product of productsRecommended | async; let i=index'>
                     <div class='col' *ngIf='i<numberOfProducts'>
                         <a href="#">
-                            <div class="card" style="width: 18rem;">
+                            <div class="card">
                                 <img class="card-img-top" [src]="product.url" [alt]="product.id" >
                                 <div class="card-body">
                                     <h5 class="card-title">{{ product.title }}</h5>

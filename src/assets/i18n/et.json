@@ -91,11 +91,11 @@
   },
   
   "cart": {
-	"title": "Ostukorv",
-	"paymentbutton": "Suundu maksma",
-	"items": "Tooteid korvis: ",
-	"removeItem": "Eemalda",
-	"changeQuantity": "Kogus"
+    "title": "Ostukorv",
+    "paymentbutton": "Suundu maksma",
+    "items": "Tooteid korvis: ",
+    "removeItem": "Eemalda",
+    "changeQuantity": "Kogus" 
   },
   
   "payment": {
@@ -111,7 +111,6 @@
 
   "content": {
     "productAmount": "Tooteid Leitud",
-
     "productDisplay": {
       "deleteProduct" : "Kustuta"
     }
