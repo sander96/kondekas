@@ -8,7 +8,7 @@ import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 })
 export class AppComponent {
   
-  showSidebar: boolean = true;
+  showSidebar: boolean = false;
 
   constructor(public translate: TranslateService) {
     translate.addLangs(["en", "et"]);

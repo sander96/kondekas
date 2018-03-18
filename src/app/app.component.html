@@ -2,11 +2,11 @@
 
 <div class="container-fluid">
     <div class="row">
-      <div class="col-2-auto bg-primary" *ngIf='showSidebar'>
+      <div class="col-12 col-sm-auto  bg-primary" *ngIf='showSidebar'>
         <sidebar></sidebar>
       </div>
-      <main class="col bd-content" role="main">
+      <div class="col bd-content">
         <router-outlet></router-outlet>
-      </main>
+      </div>
     </div>
-  </div>
+</div>

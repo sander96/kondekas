@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import { Component, Output, EventEmitter, HostListener } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthService } from "../../core/services/auth.service";
 import { Router } from "@angular/router";
@@ -11,11 +11,27 @@ import { Router } from "@angular/router";
 export class NavbarComponent {
   @Output() changeSidebarEvent = new EventEmitter<boolean>();
 
-  showSidebar: boolean = true;
+  showSidebar: boolean = false;
+  isXS = false;
+  isExpanded = false;
 
   constructor(public authService: AuthService,
               public translate: TranslateService,
               private router: Router) { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let w = event.target.innerWidth;
+    if (!this.isXS && w < 768) {
+      
+      this.showSidebar = this.isExpanded;
+      this.changeSidebarEvent.emit(this.showSidebar);
+      this.isXS = true;
+    }
+    if (w >= 768) {
+      this.isXS = false;
+    }
+  }
 
   onLogOut() {
     this.authService.logOut().subscribe(
@@ -34,6 +50,12 @@ export class NavbarComponent {
 
   toggleSidebar() {
     this.showSidebar=!this.showSidebar;
+    this.changeSidebarEvent.emit(this.showSidebar);
+  }
+
+  expandAndToggle() {
+    this.isExpanded = !this.isExpanded;
+    this.showSidebar = this.isExpanded;
     this.changeSidebarEvent.emit(this.showSidebar);
   }
 }
