@@ -6,14 +6,16 @@ import { RouterModule, Routes } from "@angular/router";
 import { ProductDisplayComponent } from "./productDisplay/productDisplay.component";
 import { ContentComponent } from "./content.component";
 import { ProductService } from '../services/product.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 const contentRouts: Routes = [
   {path: ':category/:subcategory', component: ContentComponent}
 ];
 
 @NgModule({
-  imports: [HttpClientModule, CommonModule, RouterModule.forChild(contentRouts)],
+  imports: [HttpClientModule, CommonModule, RouterModule.forChild(contentRouts), TranslateModule],
   declarations: [ContentComponent, ProductDisplayComponent],
-  providers: [ProductService]
+  providers: [ProductService],
+  exports: [TranslateModule]
 })
 export class ContentModule { }

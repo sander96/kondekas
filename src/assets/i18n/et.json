@@ -91,21 +91,26 @@
   },
   
   "cart": {
-	"title": "Ostukorv",
-	"paymentbutton": "Suundu maksma",
-	"items": "Tooteid korvis: ",
-	"removeItem": "Eemalda",
-	"changeQuantity": "Kogus"
+    "title": "Ostukorv",
+    "paymentbutton": "Suundu maksma",
+    "items": "Tooteid korvis: ",
+    "removeItem": "Eemalda",
+    "changeQuantity": "Kogus" 
   },
   
   "payment": {
-	"title": "Maksmine",
-	"subTitle": "Vali makseviis",
-	"tableTitle": "Ostu kokkuvõte",
-	"nameCol": "Toode",
-	"quantityCol": "Kogus",
-	"priceCol": "Hind",
-	"total": "Kokku: ",
-	"backButton": "Tagasi ostukorvi"
+    "title": "Maksmine",
+    "subTitle": "Vali makseviis",
+    "tableTitle": "Ostu kokkuvõte",
+    "nameCol": "Toode",
+    "quantityCol": "Kogus",
+    "priceCol": "Hind",
+    "total": "Kokku: ",
+    "backButton": "Tagasi ostukorvi"
+  },
+
+  "products": {
+    "found": "Leitud tooteid",
+    "delete": "Kustuta"
   }
 }

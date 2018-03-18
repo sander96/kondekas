@@ -108,5 +108,10 @@
 	"priceCol": "Price",
 	"total": "Total: ",
 	"backButton": "Back to cart"
+  },
+
+  "products": {
+    "found": "Products found",
+    "delete": "Delete"
   }
 }
