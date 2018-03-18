@@ -62,6 +62,7 @@ const appRoutes: Routes = [
     })
   ],
   providers: [CategoriesService, AuthService, ProductService, AuthGuard, WorkerGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [TranslateModule]
 })
 export class AppModule { }

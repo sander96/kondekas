@@ -14,7 +14,12 @@ export class CategoriesService {
     private translate: TranslateService) { }
 
   getCategories(): Observable<Category[]> {
-    let httpOptions = new HttpHeaders({'Accept-Language': this.translate.currentLang});
-    return this.http.get<Category[]>(this.categoriesUrl, { headers: httpOptions});
+    let httpOptions = new HttpHeaders({
+      'Accept-Language': this.translate.currentLang
+    });
+    return this.http.get<Category[]>(this.categoriesUrl, {
+      headers: httpOptions,
+      params: { 'lang': this.translate.currentLang }
+    });
   }
 }

@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {ProductService} from "../../services/product.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'productDisplay',
@@ -18,7 +19,8 @@ export class ProductDisplayComponent implements OnInit {
   constructor(private http: HttpClient,
               private route: ActivatedRoute,
               private productService: ProductService,
-              public authService: AuthService) { }
+              public authService: AuthService,
+              public translate: TranslateService) { }
 
   ngOnInit() {
     this.productsToDisplay=new Array;

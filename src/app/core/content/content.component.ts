@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Product } from "../models/product.model";
 import { ProductService } from "../services/product.service";
 import { ActivatedRoute } from "@angular/router";
+import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-content',
@@ -11,7 +12,13 @@ import { ActivatedRoute } from "@angular/router";
 export class ContentComponent {
   products: Array<Product>;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) {}
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute,
+              public translate: TranslateService) {
+    translate.onLangChange.subscribe((params: LangChangeEvent) => {
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {

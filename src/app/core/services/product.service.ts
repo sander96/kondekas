@@ -14,7 +14,11 @@ export class ProductService {
   getProductsByPath(category: string, subCategory: string) {
     //Check for errors
     let headers = new HttpHeaders({ 'Accept-Language': this.translate.currentLang });
+
     return this.http.get<Product[]>(this.productUrl + encodeURIComponent(category)
-        +'/' + encodeURIComponent(subCategory), { headers: headers });
+        +'/' + encodeURIComponent(subCategory), {
+      headers: headers,
+      params: { 'lang': this.translate.currentLang }
+    });
   }
 }

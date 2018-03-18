@@ -7,14 +7,8 @@ import { OrdersComponent } from "./orders/orders.component";
 import { ProductsComponent } from "./products/products.component";
 import { UsersComponent } from "./users/users.component";
 import { AdminGuard } from "../core/guards/admin.guard";
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {HttpClient} from "@angular/common/http";
+import { TranslateModule } from "@ngx-translate/core";
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
 
 const adminRoutes: Routes = [
   {path: '', component: AdminComponent},
@@ -25,13 +19,7 @@ const adminRoutes: Routes = [
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule.forChild(adminRoutes),
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })],
+    TranslateModule.forChild()],
   declarations: [AdminComponent, OrdersComponent, ProductsComponent, UsersComponent],
   providers: [AdminGuard]
 })
