@@ -114,5 +114,9 @@
     "productDisplay": {
       "deleteProduct" : "Kustuta"
     }
+  },
+
+  "search": {
+    "placeholder": "Otsing"
   }
 }

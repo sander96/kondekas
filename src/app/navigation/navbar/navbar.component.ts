@@ -19,7 +19,7 @@ export class NavbarComponent {
               public translate: TranslateService,
               private router: Router) { }
 
-  @HostListener('window:resize', ['$event'])
+  /*@HostListener('window:resize', ['$event'])
   onResize(event) {
     let w = event.target.innerWidth;
     if (!this.isXS && w < 768) {
@@ -31,7 +31,7 @@ export class NavbarComponent {
     if (w >= 768) {
       this.isXS = false;
     }
-  }
+  }*/
 
   onLogOut() {
     this.authService.logOut().subscribe(
@@ -51,6 +51,7 @@ export class NavbarComponent {
   toggleSidebar() {
     this.showSidebar=!this.showSidebar;
     this.changeSidebarEvent.emit(this.showSidebar);
+    console.log(this.showSidebar);
   }
 
   expandAndToggle() {

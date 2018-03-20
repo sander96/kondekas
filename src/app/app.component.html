@@ -1,12 +1,12 @@
 <navbar (changeSidebarEvent)='recieveSidebarChange($event)'></navbar>
-
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-12 col-sm-auto  bg-primary" *ngIf='showSidebar'>
-        <sidebar></sidebar>
-      </div>
-      <div class="col bd-content">
-        <router-outlet></router-outlet>
-      </div>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-12 col-md-auto' *ngIf='showSidebar'>
+      <search></search>
+      <sidebar></sidebar>
     </div>
+    <div class='col'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

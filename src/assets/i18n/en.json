@@ -114,5 +114,9 @@
     "productDisplay": {
       "deleteProduct": "Delete"
     }
+  },
+
+  "search": {
+    "placeholder": "Search"
   }
 }

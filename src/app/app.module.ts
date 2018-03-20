@@ -21,6 +21,7 @@ import { HomeComponent } from './core/home/home.component';
 import { SidebarComponent } from './navigation/sidebar/sidebar.component';
 import { PurchaseComponent } from './core/purchase/purchase.component';
 import { NotFound } from './core/notFound/notFound.component';
+import { SearchComponent } from './navigation/search/search.component';
 
 import { CategoriesService } from './core/services/categories.service';
 
@@ -48,7 +49,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent, NotFound
+    AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent, NotFound, SearchComponent
   ],
   imports: [
     PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes),
