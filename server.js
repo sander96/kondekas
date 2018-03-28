@@ -2,8 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
+const https = require('https');
 const app = express();
 const session = require("express-session");
+const fs = require('fs');
 
 require('./server/db');
 
@@ -60,8 +62,19 @@ app.get('*', (req, res) => {
 
 //Set Port
 const port = process.env.PORT || '3000';
-app.set('port', port);
 
-const server = http.createServer(app);
+var options = {
+  key: fs.readFileSync('./tls/key.pem'),
+  cert: fs.readFileSync('./tls/cert.pem')
+};
 
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+const httpServer = http.createServer(app).listen(port);
+const httpsServer = https.createServer(options, app).listen(443);
+
+httpServer.on('error', function (err) {
+  console.log('http server error: ' + err);
+});
+
+httpsServer.on('error', function (err) {
+  console.log('https server error: ' + err);
+});
