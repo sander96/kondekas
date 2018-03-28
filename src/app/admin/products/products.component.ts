@@ -36,6 +36,35 @@ export class ProductsComponent implements OnInit{
     return this.http.get<Category[]>('api/category', httpOptions);
   }
 
+  deleteCategory() {
+    if (this.selectedCategory) {
+      let categoryPath = encodeURI(this.selectedCategory.path);
+      let deleteUrl = `api/category/${categoryPath}`;
+
+      this.http.delete(deleteUrl)
+          .pipe(catchError(this.handleError))
+          .subscribe(res => {
+            this.selectedCategory = null;
+            this.categories = this.getCategories();
+          });
+    }
+  }
+
+  deleteSubcategory() {
+    if (this.selectedCategory && this.selectedSubcategory) {
+      let categoryPath = encodeURI(this.selectedCategory.path);
+      let subcategoryPath = encodeURI(this.selectedSubcategory.path);
+      let deleteUrl = `api/category/${categoryPath}/${subcategoryPath}`;
+
+      this.http.delete(deleteUrl)
+          .pipe(catchError(this.handleError))
+          .subscribe(res => {
+            this.selectedSubcategory = null;
+            this.categories = this.getCategories();
+          });
+    }
+  }
+
   dismissSuccessDialog() {
     this.uploadSuccess = false;
     $('#successModal').modal('hide');
