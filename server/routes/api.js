@@ -14,12 +14,17 @@ router.post('/auth/register/email', authentication.registerEmail);
 // User login with email
 router.post('/auth/login/email', passport.authenticate('local'), authentication.loginSuccess);
 
-// User registration with Google account
+// User registration/login with Google account
 router.get('/auth/google', passport.authenticate('google', {
   scope: ['profile email']
 }));
 
 router.get('/auth/google/redirect', passport.authenticate('google'), function (req, res) {
+  res.redirect('/');
+});
+
+// User registration/login with email
+router.get('/auth/id-card', passport.authenticate('client-cert'), function (req, res) {
   res.redirect('/');
 });
 
@@ -68,7 +73,7 @@ router.post('/product/:category/:subcategory/:product', authorization.isAuthoriz
 
 // Delete a product
 router.delete('/product/:category/:subcategory/:productId', authorization.isAuthorized(['admin', 'worker']),
-    productHandler.deleteProduct);
+  productHandler.deleteProduct);
 
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);

@@ -6,6 +6,8 @@ var bcrypt = require('bcrypt');
 var GoogleStrategy = require('passport-google-oauth20');
 var email = require('../controllers/email');
 var validator = require('validator');
+var ClientCertStrategy = require('passport-client-cert').Strategy;
+var IdCardUser = require('../models/user').IdCardUser;
 
 function checkPassword(password, hash, done, user) {
   bcrypt.compare(password, hash, function (err, same) {
@@ -90,4 +92,44 @@ passport.use(new GoogleStrategy({
       });
     }
   });
+}));
+
+passport.use(new ClientCertStrategy(function (clientCert, done) {
+  var subject = clientCert.subject;
+
+  if (subject) {
+    User.findOne({
+      'accounts.userType': 'id-card',
+      'accounts.serialNumber': subject.serialNumber
+    }, function (err, currentUser) {
+      if (err) {
+        return done(err);
+      }
+
+      if (currentUser) {
+        return done(err, currentUser);
+      } else {
+        var idCarduser = new IdCardUser({
+          name: subject.GN + ' ' + subject.SN,
+          email: subject.serialNumber + '@eesti.ee',
+          serialNumber: subject.serialNumber
+        });
+        idCarduser.save(function (err, idCarduser) {
+          if (err) {
+            return done(err);
+          }
+
+          var user = new User({
+            accounts: [idCarduser]
+          });
+
+          user.save(function (err, user) {
+            return done(err, user);
+          });
+        });
+      }
+    });
+  } else {
+    done(null, false);
+  }
 }));

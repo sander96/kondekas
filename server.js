@@ -64,8 +64,14 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 
 var options = {
-  key: fs.readFileSync('./tls/key.pem'),
-  cert: fs.readFileSync('./tls/cert.pem')
+  key: fs.readFileSync('./certs/localhost-key.pem'),
+  cert: fs.readFileSync('./certs/localhost-cert.pem'),
+  ca: [
+    fs.readFileSync('./certs/EE_Certification_Centre_Root_CA.pem.crt'),
+    fs.readFileSync('./certs/ESTEID-SK_2015.pem.crt')
+  ],
+  requestCert: true,
+  rejectUnauthorized: true
 };
 
 const httpServer = http.createServer(app).listen(port);
