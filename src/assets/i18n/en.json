@@ -19,7 +19,8 @@
     "email": "Email",
     "password": "Password",
     "loginBtn": "Log In",
-    "signGoogle": "Sign in with Google+"
+    "signGoogle": "Sign in with Google+",
+    "signIdCard": "Sign in with id-card"
   },
 
   "register": {
@@ -37,15 +38,15 @@
   },
 
   "admin": {
-  	"ordersTitle": "Orders",
-  	"ordersLink": "Orders",
-  	"ordersDescription": "View all the orders",
-  	"productsTitle": "Products",
-  	"productsLink": "Products",
-  	"productsDescription": "Add products to database",
-  	"usersTitle": "Users",
-  	"usersLink": "Users",
-  	"usersDescription": "Change user statuses",
+    "ordersTitle": "Orders",
+    "ordersLink": "Orders",
+    "ordersDescription": "View all the orders",
+    "productsTitle": "Products",
+    "productsLink": "Products",
+    "productsDescription": "Add products to database",
+    "usersTitle": "Users",
+    "usersLink": "Users",
+    "usersDescription": "Change user statuses",
 
     "products": {
       "title": "Products",
@@ -67,46 +68,46 @@
       "submitBtn": "Add product",
 
       "catModal": {
-      	"title": "Add category",
-      	"etSubcatPlaceholder": "Estonian subcategory name",
-      	"enSubcatPlaceholder": "English subcategory name",
-      	"removeSubcat": "Delete",
-      	"addSubcat": "Add subcategory",
-      	"addBtn": "Add category"
+        "title": "Add category",
+        "etSubcatPlaceholder": "Estonian subcategory name",
+        "enSubcatPlaceholder": "English subcategory name",
+        "removeSubcat": "Delete",
+        "addSubcat": "Add subcategory",
+        "addBtn": "Add category"
       },
 
       "subcatModal": {
-      	"title": "Add subcategory",
-      	"addBtn": "Add subcategory"
+        "title": "Add subcategory",
+        "addBtn": "Add subcategory"
       }
     },
 
     "users": {
-    	"title": "Users"
+      "title": "Users"
     },
 
     "orders": {
-    	"title": "Orders"
+      "title": "Orders"
     }
   },
-  
+
   "cart": {
-	"title": "Shoppingcart",
-	"paymentButton": "Proceed to payment",
-	"items": "Items in cart: ",
-	"removeItem": "Remove",
-	"changeQuantity": "Quantity"
+    "title": "Shoppingcart",
+    "paymentButton": "Proceed to payment",
+    "items": "Items in cart: ",
+    "removeItem": "Remove",
+    "changeQuantity": "Quantity"
   },
-  
+
   "payment": {
-	"title": "Payment",
-	"subTitle": "Choose payment option",
-	"tableTitle": "Cart summary",
-	"nameCol": "Product",
-	"quantityCol": "Quantity",
-	"priceCol": "Price",
-	"total": "Total: ",
-	"backButton": "Back to cart"
+    "title": "Payment",
+    "subTitle": "Choose payment option",
+    "tableTitle": "Cart summary",
+    "nameCol": "Product",
+    "quantityCol": "Quantity",
+    "priceCol": "Price",
+    "total": "Total: ",
+    "backButton": "Back to cart"
   },
 
   "content": {

@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const routerIdCard = express.Router();
 
 var authentication = require('../controllers/authentication');
 var passport = require('passport');
 var authorization = require('../controllers/authorization');
+const idCard = require('../controllers/idCard');
 
 var categoryHandler = require('../controllers/categoryHandler');
 var productHandler = require('../controllers/productHandler');
@@ -23,9 +25,11 @@ router.get('/auth/google/redirect', passport.authenticate('google'), function (r
   res.redirect('/');
 });
 
-// User registration/login with email
-router.get('/auth/id-card', passport.authenticate('client-cert'), function (req, res) {
-  res.redirect('/');
+// User registration/login with id-card
+router.get('/auth/id-card', idCard.idCardRedirect);
+
+routerIdCard.get('/auth/id-card', passport.authenticate('client-cert'), function (req, res) {
+  res.redirect('https://localhost/');
 });
 
 // Authentication required to access the following resource
@@ -78,4 +82,5 @@ router.delete('/product/:category/:subcategory/:productId', authorization.isAuth
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);
 
-module.exports = router;
+module.exports.api = router;
+module.exports.idCardApi = routerIdCard;
