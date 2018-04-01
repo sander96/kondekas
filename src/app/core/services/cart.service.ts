@@ -12,22 +12,7 @@ export class CartService {
 
   update = new Map<Product, number>();
 
-  readonly ROOT_URL = 'https://jsonplaceholder.typicode.com';
-
-  constructor(private http: HttpClient) {
-    let testProducts: Observable<Product[]>;
-    let temp = new Map<Product, number>();
-
-    let params = new HttpParams().set('albumId', '1');
-    testProducts = this.http.get<Product[]>(this.ROOT_URL + '/photos', { params });
-
-    for (let i=0;i<4;i++) {
-      testProducts.subscribe(products => {
-        temp.set(products[i], 1);
-      })
-    }
-    this.cart.next(temp);
-  }
+  constructor() { }
 
   changeQuantity(product: Product, quantity: number): void  {
     this.update=this.cart.getValue();
@@ -36,6 +21,7 @@ export class CartService {
   }
 
   addToCart(productToAdd: Product): void {
+    console.log(productToAdd);
     this.update=this.cart.getValue();
     this.update.set(productToAdd, 1);
     this.cart.next(this.update);

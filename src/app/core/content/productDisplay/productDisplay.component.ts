@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Product } from "../../models/product.model";
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
-import {ProductService} from "../../services/product.service";
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
+import { ProductService } from "../../services/product.service";
 import { TranslateService } from "@ngx-translate/core";
+import { CartService } from "../../services/cart.service";
 
 @Component({
   selector: 'productDisplay',
@@ -19,7 +20,9 @@ export class ProductDisplayComponent implements OnInit {
               private route: ActivatedRoute,
               private productService: ProductService,
               public authService: AuthService,
-              public translate: TranslateService) { }
+              public cartService: CartService,
+              public translate: TranslateService) {
+  }
 
   ngOnInit() {
     this.productsToDisplay=new Array;
@@ -63,6 +66,10 @@ export class ProductDisplayComponent implements OnInit {
     });
 
     return result;
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
   }
 
 }

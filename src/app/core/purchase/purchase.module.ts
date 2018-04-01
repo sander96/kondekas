@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [BrowserModule, RouterModule, TranslateModule],
+  imports: [BrowserModule, RouterModule, TranslateModule.forChild()],
   declarations: [PurchaseComponent, CartComponent, PaymentComponent],
   exports: [PurchaseComponent, TranslateModule],
   providers: [CartService, AuthService]

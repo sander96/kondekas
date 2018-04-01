@@ -113,7 +113,8 @@
   "content": {
     "productAmount": "Tooteid Leitud",
     "productDisplay": {
-      "deleteProduct": "Kustuta"
+      "addToCart": "Lisa ostukorvi",
+      "deleteProduct" : "Kustuta"
     }
   },
 

@@ -23,6 +23,7 @@
                 <h3 class='card-text'>{{product.subcategoryId}}</h3>
                 <p class='card-text'>{{product.description}}</p>
                 <div class="row">
+                  <button class='ml-auto btn btn-primary' type='button' (click)='addToCart(product)'>{{ 'content.productDisplay.addToCart' | translate }}</button>
                   <button *ngIf="authService.getRole === 'worker' || authService.getRole === 'admin'"
                           class="ml-auto btn btn-danger" (click)="deleteProduct(product)">
                     {{ 'content.productDisplay.deleteProduct' | translate }}
