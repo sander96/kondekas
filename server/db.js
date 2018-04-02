@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
-const uri = 'mongodb://localhost/kondekas';
-
-if (process.env.NODE_ENV === 'production') {
-  uri = process.env.MONGOLAB_URI;
-}
+const uri = process.env.MONGOLAB_URI || 'mongodb://localhost/kondekas';
 
 mongoose.connect(uri);
 
