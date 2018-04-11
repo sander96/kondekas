@@ -30,9 +30,9 @@ export class CartComponent implements OnInit {
     this.cartService.changeQuantity(product, quantity);
   }
 
-  addToCart(productToAdd: Product): void {
+  /*addToCart(productToAdd: Product): void {
     this.cartService.addToCart(productToAdd);
-  }
+  }*/
 
   removeFromCart(productToRemove: Product): void  {
     this.cartService.removeFromCart(productToRemove);

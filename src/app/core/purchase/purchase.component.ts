@@ -22,12 +22,13 @@ export class PurchaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.totalCost=0;
-
     if (this.getRoute() === "/cart")  this.inCart=true;
     else if (this.getRoute() === "/payment")  this.inCart=false;
 
     this.cartService.currentCart.subscribe(cart => this.cart = cart);
+    this.cart.forEach((value: number, key: Product) => {
+      this.totalCost+=key.price*value;  
+    });
   }
 
   getKeys(): Product[]  {

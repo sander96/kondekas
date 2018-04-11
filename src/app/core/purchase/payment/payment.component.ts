@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { CartService } from '../../services/cart.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-payment',
@@ -7,10 +9,19 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PaymentComponent implements OnInit {
 
-  constructor(public translate: TranslateService) { }
+  constructor(public translate: TranslateService, public cartService: CartService) { }
 
-  ngOnInit() {
-    
+  ngOnInit() {  
+  }
+
+  sendPurchaseList(): void  {
+    let response = this.cartService.sendPurchaseList();
+
+    if (response) {
+      console.log('Purchase successful');
+    } else  {
+      console.log('Purchase failed');
+    }
   }
 
 }
