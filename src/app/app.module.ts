@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -62,7 +62,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [CategoriesService, AuthService, ProductService, AuthGuard, WorkerGuard],
+  providers: [CategoriesService, AuthService, ProductService, AuthGuard, WorkerGuard, Title],
   bootstrap: [AppComponent],
   exports: [TranslateModule]
 })

@@ -3,6 +3,7 @@ import { AuthService } from "../services/auth.service";
 import { NgForm } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,17 @@ export class LoginComponent {
   constructor(private authService: AuthService,
               private router: Router,
               private route: ActivatedRoute,
-              public translate: TranslateService) { }
+              public translate: TranslateService,
+              title: Title,
+              meta: Meta) {
+    title.setTitle('Login');
+
+    meta.addTags([
+      { name: 'author',   content: 'kondekas.herokuapp.com'},
+      { name: 'keywords', content: 'login page'},
+      { name: 'description', content: 'Authentication page.' }
+    ]);
+  }
 
   ngOnInit()  {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import { Product } from '../models/product.model'
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,17 @@ export class HomeComponent implements OnInit {
   productsFeatured: Observable<Product[]>;
   productsRecommended: Observable<Product[]>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              title: Title,
+              meta: Meta) {
+    title.setTitle('Kondekas');
+
+    meta.addTags([
+      { name: 'author',   content: 'kondekas.herokuapp.com'},
+      { name: 'keywords', content: 'home page'},
+      { name: 'description', content: 'This is the main page.' }
+    ]);
+  }
 
   ngOnInit() {
     let params = new HttpParams().set('albumId', '1');

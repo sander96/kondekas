@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',

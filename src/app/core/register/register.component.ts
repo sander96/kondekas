@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,17 @@ export class RegisterComponent implements OnInit{
 
   constructor(private authService: AuthService,
               private router: Router,
-              public translate: TranslateService) { }
+              public translate: TranslateService,
+              title: Title,
+              meta: Meta) {
+    title.setTitle('Register');
+
+    meta.addTags([
+      { name: 'author',   content: 'kondekas.herokuapp.com'},
+      { name: 'keywords', content: 'register page'},
+      { name: 'description', content: 'Registration page.' }
+    ]);
+  }
 
   ngOnInit()  {
     this.registerData = {

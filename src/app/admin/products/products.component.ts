@@ -7,6 +7,7 @@ import { NgForm } from "@angular/forms";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {catchError} from "rxjs/operators";
 import {Product} from "../../core/models/product.model";
+import {Meta, Title} from "@angular/platform-browser";
 
 declare var $: any;
 
@@ -20,7 +21,18 @@ export class ProductsComponent implements OnInit{
   selectedSubcategory: Category;
 
   constructor(private http: HttpClient,
-              private translateService: TranslateService) {}
+              private translateService: TranslateService,
+              title: Title,
+              meta: Meta) {
+
+    title.setTitle('Products');
+
+    meta.addTags([
+      { name: 'author',   content: 'kondekas.herokuapp.com'},
+      { name: 'keywords', content: 'products page'},
+      { name: 'description', content: 'Add new products to database.' }
+    ]);
+  }
 
   ngOnInit(): void {
     this.categories = this.getCategories();
