@@ -9,6 +9,7 @@ const idCard = require('../controllers/idCard');
 
 var categoryHandler = require('../controllers/categoryHandler');
 var productHandler = require('../controllers/productHandler');
+const statisticsHandler = require('../controllers/statisticsHandler');
 
 // User registration with email
 router.post('/auth/register/email', authentication.registerEmail);
@@ -81,6 +82,12 @@ router.delete('/product/:category/:subcategory/:productId', authorization.isAuth
 
 // Get a product
 router.get('/product/:category/:subcategory/:product', productHandler.getProduct);
+
+// Add stats
+router.post('/stats', statisticsHandler.addStats);
+
+// Get stats
+router.get('/stats', statisticsHandler.retrieveStats);
 
 module.exports.api = router;
 module.exports.idCardApi = routerIdCard;
