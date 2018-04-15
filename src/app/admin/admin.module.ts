@@ -8,19 +8,21 @@ import { ProductsComponent } from "./products/products.component";
 import { UsersComponent } from "./users/users.component";
 import { AdminGuard } from "../core/guards/admin.guard";
 import { TranslateModule } from "@ngx-translate/core";
+import { StatisticsComponent } from "./statistics/statistics.component";
 
 
 const adminRoutes: Routes = [
   {path: '', component: AdminComponent},
   {path: 'orders', component: OrdersComponent},
   {path: 'products', component: ProductsComponent},
-  {path: 'users', component: UsersComponent, canActivate: [AdminGuard]}
+  {path: 'users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path: 'statistics', component: StatisticsComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({
   imports: [CommonModule, FormsModule, RouterModule.forChild(adminRoutes),
     TranslateModule.forChild()],
-  declarations: [AdminComponent, OrdersComponent, ProductsComponent, UsersComponent],
+  declarations: [AdminComponent, OrdersComponent, ProductsComponent, UsersComponent, StatisticsComponent],
   providers: [AdminGuard]
 })
 export class AdminModule {}

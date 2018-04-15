@@ -29,6 +29,8 @@ import { CategoriesService } from './core/services/categories.service';
 import { AgmCoreModule } from '@agm/core';
 import { ProductService } from './core/services/product.service';
 import { WorkerGuard } from './core/guards/worker.guard';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { StatisticsService } from './core/services/statistics.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -52,7 +54,7 @@ const appRoutes: Routes = [
     AppComponent, AboutComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, SidebarComponent, NotFound, SearchComponent
   ],
   imports: [
-    PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes),
+    PurchaseModule, BrowserModule, HttpClientModule, FormsModule, RouterModule.forRoot(appRoutes), DeviceDetectorModule.forRoot(),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCp-1ezC2edFiAZO6Rxvtu9IZ5hVsmEQWs'}),
     TranslateModule.forRoot({
       loader: {
@@ -62,7 +64,7 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [CategoriesService, AuthService, ProductService, AuthGuard, WorkerGuard, Title],
+  providers: [CategoriesService, AuthService, ProductService, StatisticsService, AuthGuard, WorkerGuard, Title],
   bootstrap: [AppComponent],
   exports: [TranslateModule]
 })

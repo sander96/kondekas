@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../core/services/auth.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Meta, Title} from "@angular/platform-browser";
+import { DeviceDetectorService } from "ngx-device-detector";
 
 @Component({
   moduleId: module.id,
@@ -9,6 +10,7 @@ import {Meta, Title} from "@angular/platform-browser";
 })
 export class AdminComponent implements OnInit{ 
   private isAdmin: boolean;
+  deviceInfo = null;
 
   constructor(private authService: AuthService,
               public translate: TranslateService,

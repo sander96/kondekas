@@ -1,0 +1,29 @@
+<div class='container'>
+  <div class='row'>
+
+    <div class='col'>
+      <h4>Browsers</h4>
+      <ul *ngFor='let b of browsers' class='list-group'>
+        <li class='list-group-item'>{{b}}</li>
+      </ul>
+    </div>
+
+    <div class='col'>
+      <h4>Operation systems</h4>
+      <ul *ngFor='let o of os' class='list-group'>
+        <li class='list-group-item'>{{o}}</li>
+      </ul>
+    </div>
+
+    <div class='col'>
+      <h4>Visit dates</h4>
+      <ul *ngFor='let t of dates' class='list-group'>
+        <li class='list-group-item'>{{t}}</li>
+      </ul>
+    </div>
+
+    <!-- <div class='col'>
+      <div><canvas id='canvas'>{{chart}}</canvas>></div>>
+    </div> -->
+  </div>
+</div>

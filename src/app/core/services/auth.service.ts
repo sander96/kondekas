@@ -43,8 +43,6 @@ export class AuthService  {
         if (response.loggedIn)  {
           this._isAuthenticated = true;
           this._role = response.role;
-          console.log("aaaa")
-          console.log(response.role);
           return true;
         }
         else{
