@@ -72,9 +72,12 @@ module.exports.cpUpload = upload.fields([{
 }]);
 
 function addProduct(req, res, id) {
-  utils.validateBody(req, res, req.body.et_name, req.body.en_name,
-    req.body.et_description, req.body.en_description, req.body.images,
-    req.body.price, req.body.quantity);
+  if (!utils.validParameters(req.body.et_name, req.body.en_name,
+      req.body.et_description, req.body.en_description, req.body.images,
+      req.body.price, req.body.quantity)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   if (!validator.isFloat(req.body.price) || !validator.isNumeric(req.body.quantity)) {
     res.status(400);

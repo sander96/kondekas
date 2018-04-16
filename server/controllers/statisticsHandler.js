@@ -3,7 +3,10 @@ const Statistics = require('../models/statistics').Statistics;
 const utils = require('../utils');
 
 module.exports.addStats = function (req, res) {
-  utils.validateBody(req, res, req.body.os, req.body.browser);
+  if (!utils.validParameters(req.body.os, req.body.browser)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   const newStats = new Statistics({
     os: req.body.os,

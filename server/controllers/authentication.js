@@ -45,7 +45,10 @@ function saveUser(user, req, res) {
 };
 
 module.exports.registerEmail = function (req, res) {
-  utils.validateBody(req, res, req.body.email, req.body.password);
+  if (!utils.validParameters(req.body.email, req.body.password)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   if (!validator.isEmail(req.body.email)) {
     res.status(400);

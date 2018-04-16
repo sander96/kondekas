@@ -3,7 +3,10 @@ var Category = require('../models/category').Category;
 var utils = require('../utils');
 
 module.exports.createCategory = function (req, res) {
-  utils.validateBody(req, res, req.body.et_name, req.body.en_name);
+  if (!utils.validParameters(req.body.et_name, req.body.en_name)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   var newCategory = new Category({
     parentCategory: {
@@ -29,7 +32,10 @@ module.exports.createCategory = function (req, res) {
 }
 
 module.exports.createSubcategory = function (req, res) {
-  utils.validateBody(req, res, req.body.et_name, req.body.en_name);
+  if (!utils.validParameters(req.body.et_name, req.body.en_name)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   Category.findOne({
     "parentCategory.path": req.params.category
@@ -104,7 +110,10 @@ module.exports.getCategories = function (req, res) {
 }
 
 module.exports.updateCategory = function (req, res) {
-  utils.validateBody(req, res, req.body.path, req.body.et_name, req.body.en_name);
+  if (!utils.validParameters(req.body.path, req.body.et_name, req.body.en_name)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   Category.findOne({
     'parentCategory.path': req.params.category
@@ -142,7 +151,10 @@ module.exports.updateCategory = function (req, res) {
 }
 
 module.exports.updateSubcategory = function (req, res) {
-  utils.validateBody(req, res, req.body.path, req.body.et_name, req.body.en_name);
+  if (!utils.validParameters(req.body.path, req.body.et_name, req.body.en_name)) {
+    res.status(400);
+    return res.json('invalid/missing parameters');
+  }
 
   Category.findOne({
     'parentCategory.path': req.params.category
