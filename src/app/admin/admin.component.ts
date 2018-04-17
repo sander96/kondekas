@@ -15,14 +15,17 @@ export class AdminComponent implements OnInit{
   constructor(private authService: AuthService,
               public translate: TranslateService,
               title: Title,
-              meta: Meta) {
+              private meta: Meta) {
     title.setTitle('Admin');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'admin page'},
-      { name: 'description', content: 'This page is made for administrative purposes.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'admin page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'This page is made for administrative purposes.' },
+        'name=description');
+  }
+
+  removeTag() {
+    this.meta.removeTag('name=author');
   }
 
   ngOnInit()  {

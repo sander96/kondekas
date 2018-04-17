@@ -22,11 +22,9 @@ export class RegisterComponent implements OnInit{
               meta: Meta) {
     title.setTitle('Register');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'register page'},
-      { name: 'description', content: 'Registration page.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'register page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'Registration page.' }, 'name=description');
   }
 
   ngOnInit()  {

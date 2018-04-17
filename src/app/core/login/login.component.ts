@@ -23,11 +23,9 @@ export class LoginComponent {
               meta: Meta) {
     title.setTitle('Login');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'login page'},
-      { name: 'description', content: 'Authentication page.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'login page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'Authentication page.' }, 'name=description');
   }
 
   ngOnInit()  {

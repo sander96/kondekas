@@ -25,11 +25,9 @@ export class HomeComponent implements OnInit {
               meta: Meta) {
     title.setTitle('Kondekas');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'home page'},
-      { name: 'description', content: 'This is the main page.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'home page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'This is the main page.' }, 'name=description');
   }
 
   ngOnInit() {

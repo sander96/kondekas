@@ -27,11 +27,10 @@ export class ProductsComponent implements OnInit{
 
     title.setTitle('Products');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'products page'},
-      { name: 'description', content: 'Add new products to database.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'products page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'Add new products to database.' },
+        'name=description');
   }
 
   ngOnInit(): void {

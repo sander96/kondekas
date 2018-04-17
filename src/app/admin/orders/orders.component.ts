@@ -11,10 +11,9 @@ export class OrdersComponent {
 
     title.setTitle('Orders');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'orders page'},
-      { name: 'description', content: 'View the orders and mark orders completed.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'orders page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'View the orders and mark orders completed.' },
+        'name=description');
   }
 }

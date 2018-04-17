@@ -3,6 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { StatisticsService } from "../../core/services/statistics.service";
 import { Chart } from 'chart.js'
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
     moduleId: module.id,
@@ -21,7 +22,16 @@ export class StatisticsComponent implements OnInit{
     dates = new Array<Date>();
 
     constructor(public translate: TranslateService,
-                private statisticsService: StatisticsService) { };
+                private statisticsService: StatisticsService,
+                title: Title,
+                meta: Meta) {
+      title.setTitle('Register');
+
+      meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+      meta.updateTag({ name: 'keywords', content: 'statistics'}, 'name=keywords');
+      meta.updateTag({ name: 'description', content: 'Information about visitor statistics.' },
+          'name=description');
+    };
 
     ngOnInit()  {
         this.statisticsService.getStatistics().subscribe(arr => {

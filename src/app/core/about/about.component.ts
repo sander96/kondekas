@@ -19,10 +19,9 @@ export class AboutComponent {
               meta: Meta) {
     title.setTitle('About');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'about page'},
-      { name: 'description', content: 'This page gives information about Kondekas webpage.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'about page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'This page gives information about Kondekas webpage.' },
+        'name=description');
   }
 }

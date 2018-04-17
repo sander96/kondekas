@@ -11,10 +11,9 @@ export class UsersComponent {
 
     title.setTitle('Users');
 
-    meta.addTags([
-      { name: 'author',   content: 'kondekas.herokuapp.com'},
-      { name: 'keywords', content: 'users page'},
-      { name: 'description', content: 'Add, modify and delete the users.' }
-    ]);
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'users page'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'Add, modify and delete the users.' },
+        'name=description');
   }
 }

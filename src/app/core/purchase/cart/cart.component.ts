@@ -3,6 +3,7 @@ import { Product } from '../../models/product.model';
 import { Observable } from "rxjs/Observable";
 import { CartService } from '../../services/cart.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-cart',
@@ -12,10 +13,20 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 export class CartComponent implements OnInit {
   cart = new Map<Product, number>();
 
-  constructor(private cartService: CartService, public translate: TranslateService) {
+  constructor(private cartService: CartService,
+              public translate: TranslateService,
+              title: Title,
+              meta: Meta) {
     translate.onLangChange.subscribe((params: LangChangeEvent) => {
       this.ngOnInit();
     });
+
+    title.setTitle('Cart');
+
+    meta.updateTag({ name: 'author', content: 'kondekas.herokuapp.com'}, 'name=author');
+    meta.updateTag({ name: 'keywords', content: 'your shopping cart'}, 'name=keywords');
+    meta.updateTag({ name: 'description', content: 'Here are all the selected products.' },
+        'name=description');
   }
 
   ngOnInit() {
