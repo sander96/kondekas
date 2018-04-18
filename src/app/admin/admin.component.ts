@@ -24,10 +24,6 @@ export class AdminComponent implements OnInit{
         'name=description');
   }
 
-  removeTag() {
-    this.meta.removeTag('name=author');
-  }
-
   ngOnInit()  {
     this.isAdmin = this.authService.getRole=='admin';
   }
